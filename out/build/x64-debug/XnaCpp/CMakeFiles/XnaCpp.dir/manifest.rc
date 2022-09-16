@@ -1,0 +1,2 @@
+#pragma code_page(65001)
+1 /* CREATEPROCESS_MANIFEST_RESOURCE_ID */ 24 /* RT_MANIFEST */ "C:/dev/my-projects/XnaCpp/out/build/x64-debug/XnaCpp/CMakeFiles/XnaCpp.dir/embed.manifest"
