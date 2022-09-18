@@ -1,8 +1,14 @@
 # ninja log v5
-1	1054	6850554424823955	XnaCpp/CMakeFiles/XnaCpp.dir/Main.cpp.obj	7669e72ae99c05fa
-1057	1369	6850554427832542	XnaCpp/XnaCpp.exe	18ae6cb12f41409f
+1	1269	6850599262202460	XnaCpp/CMakeFiles/XnaCpp.dir/Main.cpp.obj	7669e72ae99c05fa
+1270	1480	6850599263895540	XnaCpp/XnaCpp.exe	fc49dfa0d56a0ba
 6	582	6850584165127709	XnaCpp/CMakeFiles/XnaCpp.dir/Point.cpp.obj	ca15a51889eb7548
-1	1198	6850584171297547	XnaCpp/CMakeFiles/XnaCpp.dir/Main.cpp.obj	7669e72ae99c05fa
-1199	1381	6850584172777575	XnaCpp/XnaCpp.exe	fc49dfa0d56a0ba
-1	908	6850584303217357	XnaCpp/CMakeFiles/XnaCpp.dir/Main.cpp.obj	7669e72ae99c05fa
-909	1108	6850584304867357	XnaCpp/XnaCpp.exe	fc49dfa0d56a0ba
+0	763	6852258349865893	XnaCpp/CMakeFiles/XnaCpp.dir/Rectangle.cpp.obj	1c95e812b5bcf1fc
+12	779	6852258350178460	XnaCpp/CMakeFiles/XnaCpp.dir/Point.cpp.obj	ca15a51889eb7548
+8	1323	6852258355490868	XnaCpp/CMakeFiles/XnaCpp.dir/Main.cpp.obj	7669e72ae99c05fa
+1323	1716	6852258358303419	XnaCpp/XnaCpp.exe	f3aaea84154acc99
+1	616	6852273467849626	XnaCpp/CMakeFiles/XnaCpp.dir/Rectangle.cpp.obj	1c95e812b5bcf1fc
+617	894	6852273469568360	XnaCpp/XnaCpp.exe	f3aaea84154acc99
+0	255	6852273988353697	XnaCpp/CMakeFiles/XnaCpp.dir/Rectangle.cpp.obj	1c95e812b5bcf1fc
+256	399	6852273989603665	XnaCpp/XnaCpp.exe	f3aaea84154acc99
+0	933	6852304390793699	XnaCpp/CMakeFiles/XnaCpp.dir/Rectangle.cpp.obj	1c95e812b5bcf1fc
+935	1317	6852304393268225	XnaCpp/XnaCpp.exe	f3aaea84154acc99

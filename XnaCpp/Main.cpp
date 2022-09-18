@@ -8,13 +8,19 @@ using namespace Xna;
 
 int main()
 {
-	Point point;	
+	Point p1;		
 
-	cout << point.X << point.Y << endl;
+	cout << p1.X << p1.Y << endl;
 
-	point.X = 30;
-	point.Y = 60;
+	p1.X = 30;
+	p1.Y = 60;
 
-	cout << point.X << " " << point.Y << endl;
+	Point p2 = Point(p1);
+
+	cout << p2.X << " " << p2.Y << endl;
+
+	auto p3 = p2 + p1;
+
+
 	return 0;
 }

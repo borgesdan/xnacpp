@@ -30,4 +30,4 @@ namespace Xna {
 	};
 }
 
-#endif // !_POINT_HPP_
+#endif
