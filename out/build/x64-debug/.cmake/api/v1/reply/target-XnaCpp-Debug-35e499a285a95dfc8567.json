@@ -65,7 +65,9 @@
 				0,
 				2,
 				3,
-				4
+				4,
+				5,
+				6
 			]
 		}
 	],
@@ -105,7 +107,9 @@
 				0,
 				2,
 				3,
-				4
+				4,
+				5,
+				6
 			]
 		},
 		{
@@ -145,6 +149,18 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "XnaCpp/TimeSpan.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "XnaCpp/Game.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "XnaCpp/GameTime.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],
