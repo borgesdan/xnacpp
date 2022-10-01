@@ -5,6 +5,7 @@
 
 namespace Xna {
 	class MathHelper {
+	public:
 		static constexpr float E = 2.7182818284590451;
 		static constexpr float PI = 3.1415926535897931;
 		static constexpr float LOG10E = 0.4342945;

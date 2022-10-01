@@ -1,4 +1,5 @@
 #include "Vector2.hpp"
+#include "MathHelper.hpp"
 
 namespace Xna {
 	const Vector2 Vector2::Zero = Vector2(0);
@@ -13,5 +14,12 @@ namespace Xna {
 		return Vector2(
 			value1.X + value2.X,
 			value1.Y + value2.Y);
+	}
+
+	Vector2 Vector2::Barycentric(Vector2 const& value1, Vector2 const& value2,
+		Vector2 const& value3, float amount1, float amount2) {
+		return Vector2(
+			MathHelper::Barycentric(value1.X, value2.X, value3.X, amount1, amount2),
+			MathHelper::Barycentric(value1.Y, value2.Y, value3.Y, amount1, amount2));
 	}
 }
