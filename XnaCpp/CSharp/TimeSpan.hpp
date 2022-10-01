@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <limits>
 
-namespace Xna {
+namespace CSharp {
 	struct TimeSpan {
 	
 		static constexpr int64_t TicksPerMillisecond = 10000;

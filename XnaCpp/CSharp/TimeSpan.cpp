@@ -2,7 +2,7 @@
 
 using std::numeric_limits;
 
-namespace Xna {
+namespace CSharp {
 	const TimeSpan TimeSpan::Zero = TimeSpan();
 
 	//----- Constructors -----

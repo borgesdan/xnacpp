@@ -1,5 +1,7 @@
 #include "GameTime.hpp"
 
+using CSharp::TimeSpan;
+
 namespace Xna {
 	GameTime::GameTime() {}
 	GameTime::GameTime(TimeSpan totalGameTime, TimeSpan elapsedGameTime, bool isRunningSlowly) :

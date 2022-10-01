@@ -98,17 +98,10 @@ build XnaCpp\CMakeFiles\XnaCpp.dir\Rectangle.cpp.obj: CXX_COMPILER__XnaCpp_Debug
   TARGET_COMPILE_PDB = XnaCpp\CMakeFiles\XnaCpp.dir\
   TARGET_PDB = XnaCpp\XnaCpp.pdb
 
-build XnaCpp\CMakeFiles\XnaCpp.dir\TimeSpan.cpp.obj: CXX_COMPILER__XnaCpp_Debug C$:\dev\my-projects\XnaCpp\XnaCpp\TimeSpan.cpp || cmake_object_order_depends_target_XnaCpp
+build XnaCpp\CMakeFiles\XnaCpp.dir\CSharp\TimeSpan.cpp.obj: CXX_COMPILER__XnaCpp_Debug C$:\dev\my-projects\XnaCpp\XnaCpp\CSharp\TimeSpan.cpp || cmake_object_order_depends_target_XnaCpp
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
   OBJECT_DIR = XnaCpp\CMakeFiles\XnaCpp.dir
-  OBJECT_FILE_DIR = XnaCpp\CMakeFiles\XnaCpp.dir
-  TARGET_COMPILE_PDB = XnaCpp\CMakeFiles\XnaCpp.dir\
-  TARGET_PDB = XnaCpp\XnaCpp.pdb
-
-build XnaCpp\CMakeFiles\XnaCpp.dir\Game.cpp.obj: CXX_COMPILER__XnaCpp_Debug C$:\dev\my-projects\XnaCpp\XnaCpp\Game.cpp || cmake_object_order_depends_target_XnaCpp
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20
-  OBJECT_DIR = XnaCpp\CMakeFiles\XnaCpp.dir
-  OBJECT_FILE_DIR = XnaCpp\CMakeFiles\XnaCpp.dir
+  OBJECT_FILE_DIR = XnaCpp\CMakeFiles\XnaCpp.dir\CSharp
   TARGET_COMPILE_PDB = XnaCpp\CMakeFiles\XnaCpp.dir\
   TARGET_PDB = XnaCpp\XnaCpp.pdb
 
@@ -127,7 +120,7 @@ build XnaCpp\CMakeFiles\XnaCpp.dir\GameTime.cpp.obj: CXX_COMPILER__XnaCpp_Debug 
 #############################################
 # Link the executable XnaCpp\XnaCpp.exe
 
-build XnaCpp\XnaCpp.exe: CXX_EXECUTABLE_LINKER__XnaCpp_Debug XnaCpp\CMakeFiles\XnaCpp.dir\Main.cpp.obj XnaCpp\CMakeFiles\XnaCpp.dir\Point.cpp.obj XnaCpp\CMakeFiles\XnaCpp.dir\Rectangle.cpp.obj XnaCpp\CMakeFiles\XnaCpp.dir\TimeSpan.cpp.obj XnaCpp\CMakeFiles\XnaCpp.dir\Game.cpp.obj XnaCpp\CMakeFiles\XnaCpp.dir\GameTime.cpp.obj
+build XnaCpp\XnaCpp.exe: CXX_EXECUTABLE_LINKER__XnaCpp_Debug XnaCpp\CMakeFiles\XnaCpp.dir\Main.cpp.obj XnaCpp\CMakeFiles\XnaCpp.dir\Point.cpp.obj XnaCpp\CMakeFiles\XnaCpp.dir\Rectangle.cpp.obj XnaCpp\CMakeFiles\XnaCpp.dir\CSharp\TimeSpan.cpp.obj XnaCpp\CMakeFiles\XnaCpp.dir\GameTime.cpp.obj
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console
   LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
