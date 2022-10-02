@@ -103,7 +103,7 @@ namespace Xna {
 		return angle;
 	}
 
-	bool MathHelper::IsPowerOfTwo(int value) {
+	bool MathHelper::IsPowerOfTwo(int32_t value) {
 		return (value > 0) && ((value & (value - 1)) == 0);
 	}
 }
