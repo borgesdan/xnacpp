@@ -56,6 +56,8 @@ namespace Xna {
 		static Vector2 SmoothStep(Vector2 const& value1, Vector2 const& value2, float amount);
 		static Vector2 Subtract(Vector2 const& value1, Vector2 const& value2);
 
+		//TODO: Implementar os métodos de transformação
+
 		void Ceiling();
 		bool Equals(Vector2 const& other) const;
 		void Floor();
