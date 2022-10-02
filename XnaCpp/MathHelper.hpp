@@ -32,7 +32,7 @@ namespace Xna {
 		static float ToDegrees(float radians);
 		static float ToRadians(float degrees);
 		static float WrapAngle(float angle);
-		static bool IsPowerOfTwo(int value);
+		static bool IsPowerOfTwo(int32_t value);
 	};
 }
 
