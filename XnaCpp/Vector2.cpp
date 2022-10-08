@@ -236,4 +236,9 @@ namespace Xna {
 			static_cast<int32_t>(X),
 			static_cast<int32_t>(Y));
 	}
+
+	void Vector2::Deconstruct(float& x, float& y) const {
+		x = X;
+		y = Y;
+	}
 }

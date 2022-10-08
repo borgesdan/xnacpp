@@ -26,6 +26,16 @@ namespace Xna {
 		Vector3(float x, float y, float z);
 		Vector3(Vector2 value, float z);
 
+		Vector3 operator -(Vector3 const& value);
+		friend Vector3 operator -(Vector3 const& value1, Vector3 const& value2);
+		friend Vector3 operator *(Vector3 const& value1, Vector3 const& value2);
+		friend Vector3 operator *(Vector3 const& value, float scaleFactor);
+		friend Vector3 operator *(float scaleFactor, Vector3 const& value);
+		friend Vector3 operator /(Vector3 const& value1, Vector3 const& value2);
+		friend Vector3 operator /(Vector3 const& value1, float divider);
+		friend bool operator ==(Vector3 const& value1, Vector3 const& value2);
+		friend bool operator !=(Vector3 const& value1, Vector3 const& value2);
+
 		static Vector3 Add(Vector3 const& value1, Vector3 const& value2);
 		static Vector3 Barycentric(Vector3 const& value1, Vector3 const& value2, Vector3 const& value3, float amount1, float amount2);
 		static Vector3 CatmullRom(Vector3 const& value1, Vector3 const& value2, Vector3 const& value3, Vector3 const& value4, float amount);
@@ -37,9 +47,31 @@ namespace Xna {
 		static Vector3 Divide(Vector3 const& value1, Vector3 const& value2);
 		static Vector3 Divide(Vector3 const& value1, float divider);
 		static float Dot(Vector3 const& value1, Vector3 const& value2);
+		static Vector3 Floor(Vector3 const& value);
+		static Vector3 Hermite(Vector3 const& value1, Vector3 const& tangent1, Vector3 const& value2, Vector3 const& tangent2, float amount);
+		static Vector3 Lerp(Vector3 const& value1, Vector3 const& value2, float amount);
+		static Vector3 LerpPrecise(Vector3 const& value1, Vector3 const& value2, float amount);
+		static Vector3 Max(Vector3 const& value1, Vector3 const& value2);
+		static Vector3 Min(Vector3 const& value1, Vector3 const& value2);
+		static Vector3 Multiply(Vector3 const& value1, Vector3 const& value2);
+		static Vector3 Multiply(Vector3 const& value1, float scaleFactor);
+		static Vector3 Negate(Vector3 const& value);
+		static Vector3 Normalize(Vector3 const& value);
+		static Vector3 Reflect(Vector3 const& vector, Vector3 const& normal);
+		static Vector3 Round(Vector3 const& value);
+		static Vector3 SmoothStep(Vector3 const& value1, Vector3 const& value2, float amount);
+		static Vector3 Subtract(Vector3 const& value1, Vector3 const& value2);
+
+		//TODO: Adicionar os métodos Transform
 
 		void Ceiling();
 		bool Equals(Vector3 const& other) const;
+		void Floor();
+		float Length() const;
+		float LengthSquared() const;
+		void Normalize();
+		void Round();
+		void Deconstruct(float& x, float& y, float& z) const;
 	};
 }
 
