@@ -66,6 +66,7 @@ namespace Xna {
 		void Normalize();
 		void Round();
 		Point ToPoint() const;
+		void Deconstruct(float& x, float& y) const;
 	};
 }
 
