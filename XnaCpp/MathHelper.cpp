@@ -10,10 +10,10 @@ namespace Xna {
 	float MathHelper::CatmullRom(float value1, float value2, float value3, float value4, float amount) {
 		float amountSquared = amount * amount;
 		float amountCubed = amountSquared * amount;
-		return (0.5 * (2.0 * value2 +
+		return (0.5F * (2.0F * value2 +
 			(value3 - value1) * amount +
-			(2.0 * value1 - 5.0 * value2 + 4.0 * value3 - value4) * amountSquared +
-			(3.0 * value2 - value1 - 3.0 * value3 + value4) * amountCubed));
+			(2.0F * value1 - 5.0F * value2 + 4.0F * value3 - value4) * amountSquared +
+			(3.0F * value2 - value1 - 3.0F * value3 + value4) * amountCubed));
 	}
 
 	float MathHelper::Clamp(float value, float min, float max) {
@@ -54,7 +54,7 @@ namespace Xna {
 	}
 
 	float MathHelper::LerpPrecise(float value1, float value2, float amount) {
-		return ((1.0 - amount) * value1) + (value2 * amount);
+		return ((1.0F - amount) * value1) + (value2 * amount);
 	}
 
 	float MathHelper::Max(float value1, float value2) {
@@ -69,7 +69,7 @@ namespace Xna {
 		return value1 < value2 ? value1 : value2;
 	}
 
-	float MathHelper::Min(int32_t value1, int32_t value2) {
+	int32_t MathHelper::Min(int32_t value1, int32_t value2) {
 		return value1 < value2 ? value1 : value2;
 	}
 

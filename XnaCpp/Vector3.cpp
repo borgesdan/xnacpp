@@ -201,7 +201,7 @@ namespace Xna {
 
 	Vector3 Vector3::Normalize(Vector3 const& value) {
 		float factor = sqrtf((value.X * value.X) + (value.Y * value.Y) + (value.Z * value.Z));
-		factor = 1.0 / factor;
+		factor = 1.0F / factor;
 		return Vector3(value.X * factor, value.Y * factor, value.Z * factor);
 	}
 

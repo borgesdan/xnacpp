@@ -163,7 +163,7 @@ namespace Xna {
 	}
 
 	Vector2 Vector2::Normalize(Vector2 const& value) {
-		float val = 1.0 / sqrt((value.X * value.X) + (value.Y * value.Y));
+		float val = 1.0F / sqrt((value.X * value.X) + (value.Y * value.Y));
 		auto x = value.X * val;
 		auto y = value.Y * val;
 		return Vector2(x, y);
@@ -171,7 +171,7 @@ namespace Xna {
 
 	Vector2 Vector2::Reflect(Vector2 const& vector, Vector2 const& normal) {
 		Vector2 result;
-		float val = 2.0 * ((vector.X * normal.X) + (vector.Y * normal.Y));
+		float val = 2.0F * ((vector.X * normal.X) + (vector.Y * normal.Y));
 		result.X = vector.X - (normal.X * val);
 		result.Y = vector.Y - (normal.Y * val);
 		return result;
