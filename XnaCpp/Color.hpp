@@ -8,22 +8,22 @@
 namespace Xna {
 	struct Color {
 
-		public Color();
-		public Color(uint32_t packedValue);
-		public Color(Vector4 color);
-		public Color(Vector3 color);
-		public Color(Color color, int32_t alpha);
-		public Color(Color color, float alpha);
-		public Color(float r, float g, float b);
-		public Color(float r, float g, float b, float alpha);
-		public Color(int32_t r, int32_t g, int32_t b);
-		public Color(int32_t r, int32_t g, int32_t b, int32_t alpha);
-		public Color(uint8_t r, uint8_t g, uint8_t b, uint8_t alpha);
+		Color();
+		Color(uint32_t packedValue);
+		Color(Vector4 color);
+		Color(Vector3 color);
+		Color(Color color, int32_t alpha);
+		Color(Color color, float alpha);
+		Color(float r, float g, float b);
+		Color(float r, float g, float b, float alpha);
+		Color(int32_t r, int32_t g, int32_t b);
+		Color(int32_t r, int32_t g, int32_t b, int32_t alpha);
+		Color(uint8_t r, uint8_t g, uint8_t b, uint8_t alpha);
 
 		friend bool operator ==(Color const& a, Color const& b);
 		friend bool operator !=(Color const& a, Color const& b);
-		friend Color operator* (Color const& a value, float scale);
-		friend Color operator* (float scale, Color const& a value);
+		friend Color operator* (Color const& value, float scale);
+		friend Color operator* (float scale, Color const& value);
 
 		static Color Lerp(Color const& value1, Color const& value2, int16_t amount);
 		static Color Multiply(Color const& value, float scale);
@@ -41,12 +41,12 @@ namespace Xna {
 		bool Equals(Color other) const;
 		Vector3 ToVector3() const;
 		Vector4 ToVector4() const;
-		uint16_t PackedValue();		
+		uint16_t PackedValue();
 		void Deconstruct(uint8_t& r, uint8_t& g, uint8_t& b) const;
 		void Deconstruct(float& r, float& g, float& b) const;
 		void Deconstruct(uint8_t& r, uint8_t& g, uint8_t& b, uint8_t& a) const;
-		void Deconstruct(float& r,float& g, float& b, float& a) const;
-	
+		void Deconstruct(float& r, float& g, float& b, float& a) const;
+
 	private:
 		uint32_t _packedValue;
 
@@ -193,7 +193,7 @@ namespace Xna {
 		static const Color White;
 		static const Color WhiteSmoke;
 		static const Color Yellow;
-		static const Color YellowGreen;	
+		static const Color YellowGreen;
 	};
 }
 
