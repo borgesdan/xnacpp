@@ -24,7 +24,7 @@ namespace Xna {
 		Vector4(Vector3 value, float w);
 		Vector4(Vector2 value, float z, float w);
 
-		Vector4 operator -(Vector4 const& value);
+		Vector4 operator -() const;
 		friend Vector4 operator -(Vector4 const& value1, Vector4 const& value2);
 		friend Vector4 operator *(Vector4 const& value1, Vector4 const& value2);
 		friend Vector4 operator *(Vector4 const& value, float scaleFactor);

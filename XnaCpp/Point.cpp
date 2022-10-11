@@ -11,6 +11,10 @@ namespace Xna {
 
 	//----- Operators -----
 
+	Point Point::operator-() const {
+		return Point(-X, -Y);
+	}
+
 	Point operator+ (Point const& value1, Point const& value2) {
 		return Point::Add(value1, value2);
 	}

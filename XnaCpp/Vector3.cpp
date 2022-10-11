@@ -5,16 +5,16 @@
 using std::ceil;
 
 namespace Xna {
-	const Vector3 Vector3::Zero = Vector3();
+	const Vector3 Vector3::Zero = Vector3(0);
 	const Vector3 Vector3::One = Vector3(1);
-	const Vector3 Vector3::UnitX = Vector3(1,0,0);
+	const Vector3 Vector3::UnitX = Vector3(1, 0, 0);
 	const Vector3 Vector3::UnitY = Vector3(0, 1, 0);
 	const Vector3 Vector3::UnitZ = Vector3(0, 0, 1);
 	const Vector3 Vector3::Up = UnitY;
-	const Vector3 Vector3::Down = Vector3(0, -1, 0);
+	const Vector3 Vector3::Down = -UnitY;
 	const Vector3 Vector3::Right = UnitX;
-	const Vector3 Vector3::Left = Vector3(-1, 0, 0);
-	const Vector3 Vector3::Forward = Vector3(0, 0, -1);
+	const Vector3 Vector3::Left = -UnitX;
+	const Vector3 Vector3::Forward = -UnitZ;
 	const Vector3 Vector3::Backward = UnitZ;
 
 	Vector3::Vector3() {}
@@ -25,8 +25,8 @@ namespace Xna {
 	Vector3::Vector3(Vector2 value, float z):
 		X(value.X), Y(value.Y), Z(z) {}
 
-	Vector3 Vector3::operator -(Vector3 const& value) {
-		return Negate(value);
+	Vector3 Vector3::operator -() const {
+		return Negate(*this);
 	}
 
 	Vector3 operator -(Vector3 const& value1, Vector3 const& value2) {
@@ -83,12 +83,10 @@ namespace Xna {
 	}
 
 	Vector3 Vector3::Ceiling(Vector3 const& value) {
-		Vector3 result;
-		result.X = ceil(value.X);
-		result.Y = ceil(value.Y);
-		result.Z = ceil(value.Z);
-
-		return result;
+		return Vector3(
+			ceil(value.X),
+			ceil(value.Y),
+			ceil(value.Z));
 	}
 
 	Vector3 Vector3::Clamp(Vector3 const& value1, Vector3 const& min, Vector3 const& max) {
@@ -107,7 +105,7 @@ namespace Xna {
 	}
 
 	float Vector3::Distance(Vector3 const& value1, Vector3 const& value2) {
-		return sqrtf(DistanceSquared(value1, value2));
+		return sqrt(DistanceSquared(value1, value2));
 	}
 
 	float Vector3::DistanceSquared(Vector3 const& value1, Vector3 const& value2) {
@@ -138,11 +136,11 @@ namespace Xna {
 	}
 
 	Vector3 Vector3::Floor(Vector3 const& value) {
-		
-		auto x = floor(value.X);
-		auto y = floor(value.Y);
-		auto z = floor(value.Z);
-		return Vector3(x, y, z);
+		return Vector3(
+			floor(value.X),
+			floor(value.Y),
+			floor(value.Z)
+		);
 	}
 
 	Vector3 Vector3::Hermite(Vector3 const& value1, Vector3 const& tangent1, Vector3 const& value2, Vector3 const& tangent2, float amount) {
@@ -180,45 +178,43 @@ namespace Xna {
 			MathHelper::Min(value1.Z, value2.Z));
 	}
 
-	Vector3 Vector3::Multiply(Vector3 const& value1, Vector3 const& value2) {		
-		auto x = value1.X * value2.X;
-		auto y = value1.Y * value2.Y;
-		auto z = value1.Z * value2.Z;
-		return Vector3(x, y, z);
+	Vector3 Vector3::Multiply(Vector3 const& value1, Vector3 const& value2) {			
+		return Vector3(
+			value1.X * value2.X,
+			value1.Y * value2.Y, 
+			value1.Z * value2.Z);
 	}
 
-	Vector3 Vector3::Multiply(Vector3 const& value1, float scaleFactor) {
-		auto x = value1.X * scaleFactor;
-		auto y = value1.Y * scaleFactor;
-		auto z = value1.Z * scaleFactor;
-		return Vector3(x, y, z);
+	Vector3 Vector3::Multiply(Vector3 const& value1, float scaleFactor) {		
+		return Vector3(
+			value1.X * scaleFactor, 
+			value1.Y * scaleFactor, 
+			value1.Z * scaleFactor);
 	}
 
 	Vector3 Vector3::Negate(Vector3 const& value) {
-		auto vector3 = Vector3(-value.X, -value.Y, -value.Z);
-		return vector3;
+		return Vector3(-value.X, -value.Y, -value.Z);
 	}
 
 	Vector3 Vector3::Normalize(Vector3 const& value) {
-		float factor = sqrtf((value.X * value.X) + (value.Y * value.Y) + (value.Z * value.Z));
+		float factor = sqrt((value.X * value.X) + (value.Y * value.Y) + (value.Z * value.Z));
 		factor = 1.0F / factor;
 		return Vector3(value.X * factor, value.Y * factor, value.Z * factor);
 	}
 
-	Vector3 Vector3::Reflect(Vector3 const& vector, Vector3 const& normal) {
-		Vector3 reflectedVector;
+	Vector3 Vector3::Reflect(Vector3 const& vector, Vector3 const& normal) {		
 		float dotProduct = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z);
-		reflectedVector.X = vector.X - (2.0f * normal.X) * dotProduct;
-		reflectedVector.Y = vector.Y - (2.0f * normal.Y) * dotProduct;
-		reflectedVector.Z = vector.Z - (2.0f * normal.Z) * dotProduct;
+		auto x = vector.X - (2.0f * normal.X) * dotProduct;
+		auto y = vector.Y - (2.0f * normal.Y) * dotProduct;
+		auto z = vector.Z - (2.0f * normal.Z) * dotProduct;
 
-		return reflectedVector;
-	}
-	Vector3 Vector3::Round(Vector3 const& value) {
-		auto x = round(value.X);
-		auto y = round(value.Y);
-		auto z = round(value.Z);
 		return Vector3(x, y, z);
+	}
+	Vector3 Vector3::Round(Vector3 const& value) {		
+		return Vector3(
+			round(value.X),
+			round(value.Y),
+			round(value.Z));
 	}
 
 	Vector3 Vector3::SmoothStep(Vector3 const& value1, Vector3 const& value2, float amount) {
@@ -229,10 +225,10 @@ namespace Xna {
 	}
 
 	Vector3 Vector3::Subtract(Vector3 const& value1, Vector3 const& value2) {
-		auto x = value1.X - value2.X;
-		auto y = value1.Y - value2.Y;
-		auto z = value1.Z - value2.Z;
-		return Vector3(x, y, z);
+		return Vector3(
+			value1.X - value2.X,
+			value1.Y - value2.Y,
+			value1.Z - value2.Z);
 	}
 
 	void Vector3::Ceiling() {
@@ -257,7 +253,7 @@ namespace Xna {
 	}
 
 	float Vector3::Length() const {
-		return sqrtf(LengthSquared());
+		return sqrt(LengthSquared());
 	}
 
 	float Vector3::LengthSquared() const {
