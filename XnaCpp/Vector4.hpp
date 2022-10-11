@@ -40,7 +40,7 @@ namespace Xna {
 		static Vector4 Ceiling(Vector4 const& value);
 		static Vector4 Clamp(Vector4 const& value1, Vector4 const& min, Vector4 const& max);
 		static float Distance(Vector4 const& value1, Vector4 const& value2);
-		static float DistanceSquared(Vector4 const& value1, Vector4 const& value2);
+		static float DistanceSquared(Vector4 const& value1, Vector4 const& value2);;
 		static Vector4 Divide(Vector4 const& value1, Vector4 const& value2);
 		static Vector4 Divide(Vector4 const& value1, float divider);
 		static float Dot(Vector4 const& value1, Vector4 const& value2);
@@ -57,6 +57,8 @@ namespace Xna {
 		static Vector4 Round(Vector4 const& value);
 		static Vector4 SmoothStep(Vector4 const& value1, Vector4 const& value2, float amount);
 		static Vector4 Subtract(Vector4 const& value1, Vector4 const& value2);
+
+		//TODO: implementar métodos Transform
 
 		void Ceiling();
 		bool Equals(Vector4 const& other) const;
