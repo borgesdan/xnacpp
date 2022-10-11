@@ -18,7 +18,7 @@ namespace Xna {
 		Vector2(float x, float y);
 		Vector2(float value);
 
-		Vector2 operator -(Vector2 const& value);
+		Vector2 operator -() const;
 		friend Vector2 operator -(Vector2 const& value1, Vector2 const& value2);
 		friend Vector2 operator *(Vector2 const& value1, Vector2 const& value2);
 		friend Vector2 operator *(Vector2 const& value, float scaleFactor);

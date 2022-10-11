@@ -13,6 +13,7 @@ namespace Xna {
 		Point();
 		Point(int32_t x, int32_t y);
 
+		Point operator-() const;
 		friend Point operator+ (Point const& value1, Point const& value2);
 		friend Point operator- (Point const& value1, Point const& value2);
 		friend Point operator* (Point const& value1, Point const& value2);

@@ -24,8 +24,8 @@ namespace Xna {
 	Vector4::Vector4(Vector2 value, float z, float w) :
 		X(value.X), Y(value.Y), Z(z), W(w) {}
 
-	Vector4 Vector4::operator -(Vector4 const& value) {
-		return Negate(value);
+	Vector4 Vector4::operator -() const {
+		return Negate(*this);
 	}
 
 	Vector4 operator -(Vector4 const& value1, Vector4 const& value2) {
@@ -85,12 +85,11 @@ namespace Xna {
 	}
 
 	Vector4 Vector4::Ceiling(Vector4 const& value) {
-		auto x = ceilf(value.X);
-		auto y = ceilf(value.Y);
-		auto z = ceilf(value.Z);
-		auto w = ceilf(value.W);
-
-		return Vector4(x, y, z, w);
+		return Vector4(
+			ceil(value.X),
+			ceil(value.Y),
+			ceil(value.Z), 
+			ceil(value.W));
 	}
 
 	Vector4 Vector4::Clamp(Vector4 const& value1, Vector4 const& min, Vector4 const& max) {
