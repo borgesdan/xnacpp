@@ -14,7 +14,8 @@ add_executable (XnaCpp
 			"MathHelper.cpp"  
 			"Vector3.cpp" 
 			"Vector4.cpp"
-			"Color.cpp")
+			"Color.cpp"
+			"Quaternion.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET XnaCpp PROPERTY CXX_STANDARD 20)
