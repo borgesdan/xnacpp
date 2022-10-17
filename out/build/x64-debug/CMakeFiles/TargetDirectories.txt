@@ -1,5 +1,0 @@
-C:/dev/my-projects/XnaCpp/out/build/x64-debug/CMakeFiles/edit_cache.dir
-C:/dev/my-projects/XnaCpp/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
-C:/dev/my-projects/XnaCpp/out/build/x64-debug/XnaCpp/CMakeFiles/XnaCpp.dir
-C:/dev/my-projects/XnaCpp/out/build/x64-debug/XnaCpp/CMakeFiles/edit_cache.dir
-C:/dev/my-projects/XnaCpp/out/build/x64-debug/XnaCpp/CMakeFiles/rebuild_cache.dir
