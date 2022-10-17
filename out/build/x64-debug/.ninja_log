@@ -1,0 +1,23 @@
+# ninja log v5
+1	21	0	clean	8c45b54705a541e8
+17	755	6876700103558147	XnaCpp/CMakeFiles/XnaCpp.dir/Point.cpp.obj	ca15a51889eb7548
+1	955	6876700105548195	XnaCpp/CMakeFiles/XnaCpp.dir/CSharp/TimeSpan.cpp.obj	4207a2f9baa67770
+75	1276	6876700109108961	XnaCpp/CMakeFiles/XnaCpp.dir/MathHelper.cpp.obj	80338d9e20227eb8
+35	1371	6876700109618689	XnaCpp/CMakeFiles/XnaCpp.dir/Vector3.cpp.obj	cbdc6878e8da143
+757	1469	6876700110838697	XnaCpp/CMakeFiles/XnaCpp.dir/GameTime.cpp.obj	8fc0e345f7e5007f
+9	1618	6876700112589821	XnaCpp/CMakeFiles/XnaCpp.dir/Rectangle.cpp.obj	1c95e812b5bcf1fc
+1371	1856	6876700114970038	XnaCpp/CMakeFiles/XnaCpp.dir/Color.cpp.obj	967dd3cc679e2d8e
+956	1956	6876700116006544	XnaCpp/CMakeFiles/XnaCpp.dir/Vector2.cpp.obj	8c716e23f9ee6ee8
+1277	2048	6876700116946604	XnaCpp/CMakeFiles/XnaCpp.dir/Vector4.cpp.obj	8ccc4dc209df1ce
+22	2395	6876700120422168	XnaCpp/CMakeFiles/XnaCpp.dir/Main.cpp.obj	7669e72ae99c05fa
+2396	3056	6876700126818335	XnaCpp/XnaCpp.exe	767e582b9c7f9a5c
+0	15	0	clean	8c45b54705a541e8
+1	249	6876704261540080	XnaCpp/CMakeFiles/XnaCpp.dir/Point.cpp.obj	ca15a51889eb7548
+10	429	6876704263054171	XnaCpp/CMakeFiles/XnaCpp.dir/CSharp/TimeSpan.cpp.obj	4207a2f9baa67770
+31	590	6876704265298218	XnaCpp/CMakeFiles/XnaCpp.dir/Vector3.cpp.obj	cbdc6878e8da143
+23	618	6876704265499822	XnaCpp/CMakeFiles/XnaCpp.dir/Vector2.cpp.obj	8c716e23f9ee6ee8
+252	724	6876704266508369	XnaCpp/CMakeFiles/XnaCpp.dir/GameTime.cpp.obj	8fc0e345f7e5007f
+16	838	6876704267821626	XnaCpp/CMakeFiles/XnaCpp.dir/Rectangle.cpp.obj	1c95e812b5bcf1fc
+429	910	6876704268527763	XnaCpp/CMakeFiles/XnaCpp.dir/MathHelper.cpp.obj	80338d9e20227eb8
+590	1039	6876704269716431	XnaCpp/CMakeFiles/XnaCpp.dir/Vector4.cpp.obj	8ccc4dc209df1ce
+6	1174	6876704271188250	XnaCpp/CMakeFiles/XnaCpp.dir/Main.cpp.obj	7669e72ae99c05fa
