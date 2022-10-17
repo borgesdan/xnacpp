@@ -22,7 +22,7 @@ namespace Xna {
 		return value;
 	}
 
-	int MathHelper::Clamp(int32_t value, int32_t min, int32_t max) {
+	int32_t MathHelper::Clamp(int32_t value, int32_t min, int32_t max) {
 		value = (value > max) ? max : value;
 		value = (value < min) ? min : value;
 		return value;
