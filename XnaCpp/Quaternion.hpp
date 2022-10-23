@@ -17,7 +17,6 @@ namespace Xna {
 		Quaternion(float x, float y, float z, float w);
 		Quaternion(Vector3 const& value, float w);
 		Quaternion(Vector4 const& value);
-
 		
 		Quaternion operator -();
 		friend Quaternion operator +(Quaternion const& quaternion1, Quaternion const& quaternion2);
@@ -32,7 +31,7 @@ namespace Xna {
 		static Quaternion Concatenate(Quaternion const& value1, Quaternion const& value2);
 		static Quaternion Conjugate(Quaternion const& value);
 		static Quaternion CreateFromAxisAngle(Vector3 const& axis, float angle);
-		//static Quaternion CreateFromRotationMatrix(Matrix matrix);
+		//TODO: criar static Quaternion CreateFromRotationMatrix(Matrix matrix);
 		static Quaternion CreateFromYawPitchRoll(float yaw, float pitch, float roll);
 		static Quaternion Divide(Quaternion const& quaternion1, Quaternion const& quaternion2);
 		static float Dot(Quaternion const& quaternion1, Quaternion const& quaternion2);
