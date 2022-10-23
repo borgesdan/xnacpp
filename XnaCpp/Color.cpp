@@ -153,11 +153,11 @@ namespace Xna {
     }
 
     Vector3 Color::ToVector3() const {
-        return Vector3(R() / 255.0, G() / 255.0, B() / 255.0);
+        return Vector3(R() / 255.0F, G() / 255.0F, B() / 255.0F);
     }
 
     Vector4 Color::ToVector4() const {
-        return Vector4(R() / 255.0, G() / 255.0, B() / 255.0, A() / 255.0);
+        return Vector4(R() / 255.0F, G() / 255.0F, B() / 255.0F, A() / 255.0F);
     }
     
     uint32_t Color::PackedValue() {
@@ -171,9 +171,9 @@ namespace Xna {
     }
 
     void Color::Deconstruct(float& r, float& g, float& b) const {
-        r = R() / 255;
-        g = G() / 255;
-        b = B() / 255;
+        r = R() / 255.F;
+        g = G() / 255.F;
+        b = B() / 255.F;
     }
 
     void Color::Deconstruct(uint8_t& r, uint8_t& g, uint8_t& b, uint8_t& a) const {
@@ -184,10 +184,10 @@ namespace Xna {
     }
 
     void Color::Deconstruct(float& r, float& g, float& b, float& a) const {
-        r = R() / 255;
-        g = G() / 255;
-        b = B() / 255;
-        a = A() / 255;
+        r = R() / 255.F;
+        g = G() / 255.F;
+        b = B() / 255.F;
+        a = A() / 255.F;
     }
 }
 
