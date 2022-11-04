@@ -2,25 +2,24 @@
 //
 
 #include "Main.hpp"
+#include "Vector3.hpp"
+#include "Matrix.hpp"
+#include "CSharp/Nullable.hpp"
+#include <vector>
+#include <memory>
 
 using namespace std;
 using namespace Xna;
+using namespace CSharp;
+
+int Teste(Nullable<Vector3> const& vector3) {
+	return vector3.HasValue() ? 0 : 1;
+}
 
 int main()
 {
-	Point p1;		
-
-	cout << p1.X << p1.Y << endl;
-
-	p1.X = 30;
-	p1.Y = 60;
-
-	Point p2 = Point(p1);
-
-	cout << p2.X << " " << p2.Y << endl;
-
-	auto p3 = p2 + p1;
-
+	Nullable<Vector3> _nullable;
+	cout << Teste(csnull);
 
 	return 0;
 }

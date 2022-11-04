@@ -5,10 +5,11 @@ cmake_minimum_required (VERSION 3.8)
 
 # Adicione a origem ao executável deste projeto.
 add_executable (XnaCpp 
+			"CSharp/TimeSpan.cpp"  
+			"CSharp/Nullable.cpp"
 			"Main.cpp" 
 			"Point.cpp" 
 			"Rectangle.cpp" 
-			"CSharp/TimeSpan.cpp"  
 			"GameTime.cpp"  
 			"Vector2.cpp" 
 			"MathHelper.cpp"  

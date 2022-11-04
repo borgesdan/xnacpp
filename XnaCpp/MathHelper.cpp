@@ -1,5 +1,8 @@
 #include "MathHelper.hpp"
 #include <cmath>
+#include <limits>
+
+using std::numeric_limits;
 
 namespace Xna {
 
@@ -105,5 +108,9 @@ namespace Xna {
 
 	bool MathHelper::IsPowerOfTwo(int32_t value) {
 		return (value > 0) && ((value & (value - 1)) == 0);
+	}
+
+	float MathHelper::IsPositiveInfinity(float value) {
+		return value == numeric_limits<float>::infinity();
 	}
 }

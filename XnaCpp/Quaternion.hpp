@@ -3,6 +3,7 @@
 
 #include "Vector3.hpp"
 #include "Vector4.hpp"
+#include "Matrix.hpp"
 
 namespace Xna {
 	struct Quaternion {
@@ -31,7 +32,7 @@ namespace Xna {
 		static Quaternion Concatenate(Quaternion const& value1, Quaternion const& value2);
 		static Quaternion Conjugate(Quaternion const& value);
 		static Quaternion CreateFromAxisAngle(Vector3 const& axis, float angle);
-		//TODO: criar static Quaternion CreateFromRotationMatrix(Matrix matrix);
+		static Quaternion CreateFromRotationMatrix(Matrix const& matrix);
 		static Quaternion CreateFromYawPitchRoll(float yaw, float pitch, float roll);
 		static Quaternion Divide(Quaternion const& quaternion1, Quaternion const& quaternion2);
 		static float Dot(Quaternion const& quaternion1, Quaternion const& quaternion2);

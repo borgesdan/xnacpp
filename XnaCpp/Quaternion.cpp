@@ -119,6 +119,58 @@ namespace Xna {
 		);
 	}
 
+	Quaternion Quaternion::CreateFromRotationMatrix(Matrix const& matrix) {
+		Quaternion quaternion;
+		float _sqrt;
+		float half;
+		float scale = matrix.M11 + matrix.M22 + matrix.M33;
+
+		if (scale > 0.0f) {
+			_sqrt = sqrt(scale + 1.0f);
+			quaternion.W = _sqrt * 0.5f;
+			_sqrt = 0.5f / _sqrt;
+
+			quaternion.X = (matrix.M23 - matrix.M32) * _sqrt;
+			quaternion.Y = (matrix.M31 - matrix.M13) * _sqrt;
+			quaternion.Z = (matrix.M12 - matrix.M21) * _sqrt;
+
+			return quaternion;
+		}
+		if ((matrix.M11 >= matrix.M22) && (matrix.M11 >= matrix.M33))
+		{
+			_sqrt = sqrt(1.0f + matrix.M11 - matrix.M22 - matrix.M33);
+			half = 0.5f / _sqrt;
+
+			quaternion.X = 0.5f * _sqrt;
+			quaternion.Y = (matrix.M12 + matrix.M21) * half;
+			quaternion.Z = (matrix.M13 + matrix.M31) * half;
+			quaternion.W = (matrix.M23 - matrix.M32) * half;
+
+			return quaternion;
+		}
+		if (matrix.M22 > matrix.M33)
+		{
+			_sqrt = sqrt(1.0f + matrix.M22 - matrix.M11 - matrix.M33);
+			half = 0.5f / _sqrt;
+
+			quaternion.X = (matrix.M21 + matrix.M12) * half;
+			quaternion.Y = 0.5f * _sqrt;
+			quaternion.Z = (matrix.M32 + matrix.M23) * half;
+			quaternion.W = (matrix.M31 - matrix.M13) * half;
+
+			return quaternion;
+		}
+		_sqrt = sqrt(1.0f + matrix.M33 - matrix.M11 - matrix.M22);
+		half = 0.5f / _sqrt;
+
+		quaternion.X = (matrix.M31 + matrix.M13) * half;
+		quaternion.Y = (matrix.M32 + matrix.M23) * half;
+		quaternion.Z = 0.5f * _sqrt;
+		quaternion.W = (matrix.M12 - matrix.M21) * half;
+
+		return quaternion;
+	}
+
 	Quaternion Quaternion::Divide(Quaternion const& quaternion1, Quaternion const& quaternion2) {
 		float x = quaternion1.X;
 		float y = quaternion1.Y;
