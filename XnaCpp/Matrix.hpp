@@ -2,14 +2,14 @@
 #define _MATRIX_HPP_
 
 #include <memory>
-#include "Vector4.hpp"
 #include "CSharp/Nullable.hpp"
-//#include "Quaternion.hpp"
-#include "Rectangle.hpp"
 
 namespace Xna {
 
 	struct Quaternion;
+	struct Rectangle;
+	struct Vector4;
+	struct Vector3;
 
 	struct Matrix {
 		float M11{ 0 };
@@ -29,6 +29,8 @@ namespace Xna {
 		float M43{ 0 };
 		float M44{ 0 };
 
+		static Matrix Identity;
+
 		Matrix();
 		Matrix(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31,
 			float m32, float m33, float m34, float m41, float m42, float m43, float m44);
@@ -42,9 +44,7 @@ namespace Xna {
 		friend  bool operator !=(Matrix const& matrix1, Matrix const& matrix2);
 		friend Matrix operator *(Matrix const& matrix1, Matrix const& matrix2);
 		friend Matrix operator *(Matrix const& matrix, float scaleFactor);
-		friend Matrix operator -(Matrix const& matrix1, Matrix const& matrix2);				
-
-		static Matrix Identity;
+		friend Matrix operator -(Matrix const& matrix1, Matrix const& matrix2);						
 
 		static Matrix Add(Matrix const& matrix1, Matrix const& matrix2);				
 		static Matrix CreateBillboard(Vector3 const& objectPosition, Vector3 const& cameraPosition,

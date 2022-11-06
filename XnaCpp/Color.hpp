@@ -2,10 +2,12 @@
 #define _COLOR_HPP_
 
 #include <cstdint>
-#include "Vector4.hpp"
-#include "Vector3.hpp"
 
 namespace Xna {
+
+	struct Vector3;
+	struct Vector4;
+
 	struct Color {
 
 		Color();

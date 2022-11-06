@@ -1,5 +1,6 @@
 #include <cmath>
 #include "Vector2.hpp"
+#include "Vector3.hpp"
 #include "Point.hpp"
 #include "MathHelper.hpp"
 #include "Matrix.hpp"

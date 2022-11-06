@@ -113,4 +113,13 @@ namespace Xna {
 	float MathHelper::IsPositiveInfinity(float value) {
 		return value == numeric_limits<float>::infinity();
 	}
+
+	int32_t MathHelper::Sign(float value) {
+		if (value < 0.F)
+			return -1;
+		else if (value > 0.F)
+			return 1;
+		else
+			return 0;
+	}
 }

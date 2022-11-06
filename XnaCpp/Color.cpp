@@ -1,6 +1,8 @@
 #include <limits>
 #include "Color.hpp"
 #include "MathHelper.hpp"
+#include "Vector4.hpp"
+#include "Vector3.hpp"
 
 using std::numeric_limits;
 

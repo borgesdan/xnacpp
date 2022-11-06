@@ -2,7 +2,6 @@
 #define _MATHHELPER_HPP_
 
 #include <cstdint>
-#include <type_traits>
 
 namespace Xna {
 	class MathHelper {
@@ -34,16 +33,8 @@ namespace Xna {
 		static float ToRadians(float degrees);
 		static float WrapAngle(float angle);
 		static bool IsPowerOfTwo(int32_t value);
-		static float IsPositiveInfinity(float value);		
-		
-		static int32_t Sign(float value) {
-			if (value < 0.F)
-				return -1;
-			else if (value > 0.F)
-				return 1;
-			else
-				return 0;
-		}
+		static float IsPositiveInfinity(float value);				
+		static int32_t Sign(float value);
 	};
 }
 

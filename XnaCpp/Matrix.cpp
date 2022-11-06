@@ -3,12 +3,23 @@
 #include <limits>
 #include "MathHelper.hpp"
 #include "Quaternion.hpp"
+#include "Vector4.hpp"
+#include "Vector3.hpp"
+#include "CSharp/Nullable.hpp"
+#include "Rectangle.hpp"
 
 using CSharp::Nullable;
 using std::numeric_limits;
 
 //Constructors
 namespace Xna {
+
+	Matrix Matrix::Identity = Matrix(
+		1.f, 0.f, 0.f, 0.f,
+		0.f, 1.f, 0.f, 0.f,
+		0.f, 0.f, 1.f, 0.f,
+		0.f, 0.f, 0.f, 1.f);
+
 	Matrix::Matrix() {}
 
 	Matrix::Matrix(
@@ -69,12 +80,6 @@ namespace Xna {
 
 //Static
 namespace Xna {
-	Matrix Matrix::Identity = Matrix(
-		1.f, 0.f, 0.f, 0.f,
-		0.f, 1.f, 0.f, 0.f,
-		0.f, 0.f, 1.f, 0.f,
-		0.f, 0.f, 0.f, 1.f);
-
 	Matrix Matrix::Add(Matrix const& matrix1, Matrix const& matrix2) {
 		Matrix result;
 		result.M11 = matrix1.M11 + matrix2.M11;
@@ -106,7 +111,7 @@ namespace Xna {
 		vector.X = objectPosition.X - cameraPosition.X;
 		vector.Y = objectPosition.Y - cameraPosition.Y;
 		vector.Z = objectPosition.Z - cameraPosition.Z;
-		float num = vector.LengthSquared();
+		auto num = vector.LengthSquared();
 
 		if (num < 0.0001f) {
 			vector = cameraForwardVector.HasValue() ? -cameraForwardVector.Value() : Vector3::Forward;
@@ -143,14 +148,13 @@ namespace Xna {
 	Matrix Matrix::CreateConstrainedBillboard(Vector3 const& objectPosition, Vector3 const& cameraPosition,
 		Vector3 const& rotateAxis, Nullable<Vector3> const& cameraForwardVector, Nullable<Vector3> const& objectForwardVector) {
 
-		float num;
 		Vector3 vector;
-		Vector3 vector2;
 		Vector3 vector3;
+		Vector3 vector2;
 		vector2.X = objectPosition.X - cameraPosition.X;
 		vector2.Y = objectPosition.Y - cameraPosition.Y;
 		vector2.Z = objectPosition.Z - cameraPosition.Z;
-		float num2 = vector2.LengthSquared();
+		auto num2 = vector2.LengthSquared();
 
 		if (num2 < 0.0001f) {
 			vector2 = cameraForwardVector.HasValue() ? -cameraForwardVector.Value() : Vector3::Forward;
@@ -159,8 +163,8 @@ namespace Xna {
 			vector2 = Vector3::Multiply(vector2, 1.f / sqrt(num2));
 		}
 
-		Vector3 vector4 = rotateAxis;
-		num = Vector3::Dot(rotateAxis, vector2);
+		auto vector4 = rotateAxis;
+		auto num = Vector3::Dot(rotateAxis, vector2);
 
 		if (abs(num) > 0.9982547f) {
 			if (objectForwardVector.HasValue()) {
@@ -211,17 +215,17 @@ namespace Xna {
 	}
 
 	Matrix Matrix::CreateFromAxisAngle(Vector3 const& axis, float angle) {
-		float x = axis.X;
-		float y = axis.Y;
-		float z = axis.Z;
-		float num2 = sin(angle);
-		float num = cos(angle);
-		float num11 = x * x;
-		float num10 = y * y;
-		float num9 = z * z;
-		float num8 = x * y;
-		float num7 = x * z;
-		float num6 = y * z;
+		auto x = axis.X;
+		auto y = axis.Y;
+		auto z = axis.Z;
+		auto num2 = sin(angle);
+		auto num = cos(angle);
+		auto num11 = x * x;
+		auto num10 = y * y;
+		auto num9 = z * z;
+		auto num8 = x * y;
+		auto num7 = x * z;
+		auto num6 = y * z;
 
 		Matrix result;
 		result.M11 = num11 + (num * (1.f - num11));
@@ -245,15 +249,15 @@ namespace Xna {
 	}
 
 	Matrix Matrix::CreateFromQuaternion(Quaternion const& quaternion) {
-		float num9 = quaternion.X * quaternion.X;
-		float num8 = quaternion.Y * quaternion.Y;
-		float num7 = quaternion.Z * quaternion.Z;
-		float num6 = quaternion.X * quaternion.Y;
-		float num5 = quaternion.Z * quaternion.W;
-		float num4 = quaternion.Z * quaternion.X;
-		float num3 = quaternion.Y * quaternion.W;
-		float num2 = quaternion.Y * quaternion.Z;
-		float num = quaternion.X * quaternion.W;
+		auto num9 = quaternion.X * quaternion.X;
+		auto num8 = quaternion.Y * quaternion.Y;
+		auto num7 = quaternion.Z * quaternion.Z;
+		auto num6 = quaternion.X * quaternion.Y;
+		auto num5 = quaternion.Z * quaternion.W;
+		auto num4 = quaternion.Z * quaternion.X;
+		auto num3 = quaternion.Y * quaternion.W;
+		auto num2 = quaternion.Y * quaternion.Z;
+		auto num = quaternion.X * quaternion.W;
 
 		Matrix result;
 		result.M11 = 1.f - (2.f * (num8 + num7));
@@ -277,14 +281,14 @@ namespace Xna {
 	}
 
 	Matrix Matrix::CreateFromYawPitchRoll(float yaw, float pitch, float roll) {
-		Quaternion quaternion = Quaternion::CreateFromYawPitchRoll(yaw, pitch, roll);
+		auto quaternion = Quaternion::CreateFromYawPitchRoll(yaw, pitch, roll);
 		return CreateFromQuaternion(quaternion);
 	}
 
 	Matrix Matrix::CreateLookAt(Vector3 const& cameraPosition, Vector3 const& cameraTarget, Vector3 const& cameraUpVector) {
-		Vector3 vector = Vector3::Normalize(cameraPosition - cameraTarget);
-		Vector3 vector2 = Vector3::Normalize(Vector3::Cross(cameraUpVector, vector));
-		Vector3 vector3 = Vector3::Cross(vector, vector2);
+		auto vector = Vector3::Normalize(cameraPosition - cameraTarget);
+		auto vector2 = Vector3::Normalize(Vector3::Cross(cameraUpVector, vector));
+		auto vector3 = Vector3::Cross(vector, vector2);
 
 		Matrix result;
 		result.M11 = vector2.X;
@@ -323,23 +327,23 @@ namespace Xna {
 
 	Matrix Matrix::CreateOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane) {
 
-		//TODO: Conferir conversão
+		//TODO: Conferir utilização de double no código original
 		Matrix result;
-		result.M11 = (float)(2.0 / ((double)right - (double)left));
+		result.M11 = 2.0 / (right - left);
 		result.M12 = 0.0f;
 		result.M13 = 0.0f;
 		result.M14 = 0.0f;
 		result.M21 = 0.0f;
-		result.M22 = (float)(2.0 / ((double)top - (double)bottom));
+		result.M22 = 2.0 / (top - bottom);
 		result.M23 = 0.0f;
 		result.M24 = 0.0f;
 		result.M31 = 0.0f;
 		result.M32 = 0.0f;
-		result.M33 = (float)(1.0 / ((double)zNearPlane - (double)zFarPlane));
+		result.M33 = 1.0 / (zNearPlane - zFarPlane);
 		result.M34 = 0.0f;
-		result.M41 = (float)(((double)left + (double)right) / ((double)left - (double)right));
-		result.M42 = (float)(((double)top + (double)bottom) / ((double)bottom - (double)top));
-		result.M43 = (float)((double)zNearPlane / ((double)zNearPlane - (double)zFarPlane));
+		result.M41 = (left + right) / (left - right);
+		result.M42 = (top + bottom) / (bottom - top);
+		result.M43 = zNearPlane / (zNearPlane - zFarPlane);
 		result.M44 = 1.0f;
 		return result;
 	}
@@ -368,9 +372,9 @@ namespace Xna {
 
 		//TODO: Conferir exceções
 
-		float yScale = 1.0f / (float)tan((double)fieldOfView * 0.5f);
-		float xScale = yScale / aspectRatio;
-		float negFarRange = MathHelper::IsPositiveInfinity(farPlaneDistance) ? -1.0f : farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+		auto yScale = 1.0f / tan(fieldOfView * 0.5f);
+		auto xScale = yScale / aspectRatio;
+		auto negFarRange = MathHelper::IsPositiveInfinity(farPlaneDistance) ? -1.0f : farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
 
 		Matrix result;
 		result.M11 = xScale;
@@ -412,8 +416,8 @@ namespace Xna {
 	Matrix Matrix::CreateRotationX(float radians) {
 		Matrix result = Matrix::Identity;
 
-		float val1 = cos(radians);
-		float val2 = sin(radians);
+		auto val1 = cos(radians);
+		auto val2 = sin(radians);
 
 		result.M22 = val1;
 		result.M23 = val2;
@@ -426,8 +430,8 @@ namespace Xna {
 	Matrix Matrix::CreateRotationY(float radians) {
 		Matrix result = Matrix::Identity;
 
-		float val1 = cos(radians);
-		float val2 = sin(radians);
+		auto val1 = cos(radians);
+		auto val2 = sin(radians);
 
 		result.M11 = val1;
 		result.M13 = -val2;
@@ -440,8 +444,8 @@ namespace Xna {
 	Matrix Matrix::CreateRotationZ(float radians) {
 		Matrix result = Matrix::Identity;
 
-		float val1 = cos(radians);
-		float val2 = sin(radians);
+		auto val1 = cos(radians);
+		auto val2 = sin(radians);
 
 		result.M11 = val1;
 		result.M12 = val2;
@@ -510,11 +514,10 @@ namespace Xna {
 	}
 
 	Matrix Matrix::CreateWorld(Vector3 const& position, Vector3 const& forward, Vector3 const& up) {
-		Vector3 x, y, z;
 
-		z = Vector3::Normalize(forward);
-		x = Vector3::Cross(forward, up);
-		y = Vector3::Cross(x, forward);
+		auto z = Vector3::Normalize(forward);
+		auto x = Vector3::Cross(forward, up);
+		auto y = Vector3::Cross(x, forward);
 
 		x.Normalize();
 		y.Normalize();
@@ -553,7 +556,7 @@ namespace Xna {
 	}
 
 	Matrix Matrix::Divide(Matrix const& matrix1, float divider) {
-		float num = 1.f / divider;
+		auto num = 1.f / divider;
 
 		Matrix result;
 		result.M11 = matrix1.M11 * num;
@@ -578,65 +581,68 @@ namespace Xna {
 
 	Matrix Matrix::Invert(Matrix const& matrix) {
 
-		//TODO: observar conversão
+		//TODO: observar conversão para double
 
-		float num1 = matrix.M11;
-		float num2 = matrix.M12;
-		float num3 = matrix.M13;
-		float num4 = matrix.M14;
-		float num5 = matrix.M21;
-		float num6 = matrix.M22;
-		float num7 = matrix.M23;
-		float num8 = matrix.M24;
-		float num9 = matrix.M31;
-		float num10 = matrix.M32;
-		float num11 = matrix.M33;
-		float num12 = matrix.M34;
-		float num13 = matrix.M41;
-		float num14 = matrix.M42;
-		float num15 = matrix.M43;
-		float num16 = matrix.M44;
-		float num17 = (float)((double)num11 * (double)num16 - (double)num12 * (double)num15);
-		float num18 = (float)((double)num10 * (double)num16 - (double)num12 * (double)num14);
-		float num19 = (float)((double)num10 * (double)num15 - (double)num11 * (double)num14);
-		float num20 = (float)((double)num9 * (double)num16 - (double)num12 * (double)num13);
-		float num21 = (float)((double)num9 * (double)num15 - (double)num11 * (double)num13);
-		float num22 = (float)((double)num9 * (double)num14 - (double)num10 * (double)num13);
-		float num23 = (float)((double)num6 * (double)num17 - (double)num7 * (double)num18 + (double)num8 * (double)num19);
-		float num24 = (float)-((double)num5 * (double)num17 - (double)num7 * (double)num20 + (double)num8 * (double)num21);
-		float num25 = (float)((double)num5 * (double)num18 - (double)num6 * (double)num20 + (double)num8 * (double)num22);
-		float num26 = (float)-((double)num5 * (double)num19 - (double)num6 * (double)num21 + (double)num7 * (double)num22);
-		float num27 = (float)(1.0 / ((double)num1 * (double)num23 + (double)num2 * (double)num24 + (double)num3 * (double)num25 + (double)num4 * (double)num26));
+		auto num1 = matrix.M11;
+		auto num2 = matrix.M12;
+		auto num3 = matrix.M13;
+		auto num4 = matrix.M14;
+		auto num5 = matrix.M21;
+		auto num6 = matrix.M22;
+		auto num7 = matrix.M23;
+		auto num8 = matrix.M24;
+		auto num9 = matrix.M31;
+		auto num10 = matrix.M32;
+		auto num11 = matrix.M33;
+		auto num12 = matrix.M34;
+		auto num13 = matrix.M41;
+		auto num14 = matrix.M42;
+		auto num15 = matrix.M43;
+		auto num16 = matrix.M44;
+
+		auto num17 = (num11 * num16 - num12 * num15);
+		auto num18 = (num10 * num16 - num12 * num14);
+		auto num19 = (num10 * num15 - num11 * num14);
+		auto num20 = (num9 * num16 - num12 * num13);
+		auto num21 = (num9 * num15 - num11 * num13);
+		auto num22 = (num9 * num14 - num10 * num13);
+		auto num23 = (num6 * num17 - num7 * num18 + num8 * num19);
+		auto num24 = -(num5 * num17 - num7 * num20 + num8 * num21);
+		auto num25 = (num5 * num18 - num6 * num20 + num8 * num22);
+		auto num26 = -(num5 * num19 - num6 * num21 + num7 * num22);
+		auto num27 = (1.0F / (num1 * num23 + num2 * num24 + num3 * num25 + num4 * num26));
 
 		Matrix result;
 		result.M11 = num23 * num27;
 		result.M21 = num24 * num27;
 		result.M31 = num25 * num27;
 		result.M41 = num26 * num27;
-		result.M12 = (float)-((double)num2 * (double)num17 - (double)num3 * (double)num18 + (double)num4 * (double)num19) * num27;
-		result.M22 = (float)((double)num1 * (double)num17 - (double)num3 * (double)num20 + (double)num4 * (double)num21) * num27;
-		result.M32 = (float)-((double)num1 * (double)num18 - (double)num2 * (double)num20 + (double)num4 * (double)num22) * num27;
-		result.M42 = (float)((double)num1 * (double)num19 - (double)num2 * (double)num21 + (double)num3 * (double)num22) * num27;
-		float num28 = (float)((double)num7 * (double)num16 - (double)num8 * (double)num15);
-		float num29 = (float)((double)num6 * (double)num16 - (double)num8 * (double)num14);
-		float num30 = (float)((double)num6 * (double)num15 - (double)num7 * (double)num14);
-		float num31 = (float)((double)num5 * (double)num16 - (double)num8 * (double)num13);
-		float num32 = (float)((double)num5 * (double)num15 - (double)num7 * (double)num13);
-		float num33 = (float)((double)num5 * (double)num14 - (double)num6 * (double)num13);
-		result.M13 = (float)((double)num2 * (double)num28 - (double)num3 * (double)num29 + (double)num4 * (double)num30) * num27;
-		result.M23 = (float)-((double)num1 * (double)num28 - (double)num3 * (double)num31 + (double)num4 * (double)num32) * num27;
-		result.M33 = (float)((double)num1 * (double)num29 - (double)num2 * (double)num31 + (double)num4 * (double)num33) * num27;
-		result.M43 = (float)-((double)num1 * (double)num30 - (double)num2 * (double)num32 + (double)num3 * (double)num33) * num27;
-		float num34 = (float)((double)num7 * (double)num12 - (double)num8 * (double)num11);
-		float num35 = (float)((double)num6 * (double)num12 - (double)num8 * (double)num10);
-		float num36 = (float)((double)num6 * (double)num11 - (double)num7 * (double)num10);
-		float num37 = (float)((double)num5 * (double)num12 - (double)num8 * (double)num9);
-		float num38 = (float)((double)num5 * (double)num11 - (double)num7 * (double)num9);
-		float num39 = (float)((double)num5 * (double)num10 - (double)num6 * (double)num9);
-		result.M14 = (float)-((double)num2 * (double)num34 - (double)num3 * (double)num35 + (double)num4 * (double)num36) * num27;
-		result.M24 = (float)((double)num1 * (double)num34 - (double)num3 * (double)num37 + (double)num4 * (double)num38) * num27;
-		result.M34 = (float)-((double)num1 * (double)num35 - (double)num2 * (double)num37 + (double)num4 * (double)num39) * num27;
-		result.M44 = (float)((double)num1 * (double)num36 - (double)num2 * (double)num38 + (double)num3 * (double)num39) * num27;
+		result.M12 = -(num2 * num17 - num3 * num18 + num4 * num19) * num27;
+		result.M22 = (num1 * num17 - num3 * num20 + num4 * num21) * num27;
+		result.M32 = -(num1 * num18 - num2 * num20 + num4 * num22) * num27;
+		result.M42 = (num1 * num19 - num2 * num21 + num3 * num22) * num27;
+
+		auto num28 = (num7 * num16 - num8 * num15);
+		auto num29 = (num6 * num16 - num8 * num14);
+		auto num30 = (num6 * num15 - num7 * num14);
+		auto num31 = (num5 * num16 - num8 * num13);
+		auto num32 = (num5 * num15 - num7 * num13);
+		auto num33 = (num5 * num14 - num6 * num13);
+		result.M13 = (num2 * num28 - num3 * num29 + num4 * num30) * num27;
+		result.M23 = -(num1 * num28 - num3 * num31 + num4 * num32) * num27;
+		result.M33 = (num1 * num29 - num2 * num31 + num4 * num33) * num27;
+		result.M43 = -(num1 * num30 - num2 * num32 + num3 * num33) * num27;
+
+		auto num34 = (num7 * num12 - num8 * num11);
+		auto num35 = (num6 * num12 - num8 * num10);
+		auto num36 = (num6 * num11 - num7 * num10);
+		auto num37 = (num5 * num12 - num8 * num9);
+		auto num38 = (num5 * num11 - num7 * num9);
+		auto num39 = (num5 * num10 - num6 * num9);
+		result.M14 = -(num2 * num34 - num3 * num35 + num4 * num36) * num27;
+		result.M24 = (num1 * num34 - num3 * num37 + num4 * num38) * num27;
+		result.M34 = -(num1 * num35 - num2 * num37 + num4 * num39) * num27;
+		result.M44 = (num1 * num36 - num2 * num38 + num3 * num39) * num27;
 
 		return result;
 	}
@@ -665,22 +671,22 @@ namespace Xna {
 	}
 
 	Matrix Matrix::Multiply(Matrix const& matrix1, Matrix const& matrix2) {
-		float m11 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
-		float m12 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
-		float m13 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
-		float m14 = (((matrix1.M11 * matrix2.M14) + (matrix1.M12 * matrix2.M24)) + (matrix1.M13 * matrix2.M34)) + (matrix1.M14 * matrix2.M44);
-		float m21 = (((matrix1.M21 * matrix2.M11) + (matrix1.M22 * matrix2.M21)) + (matrix1.M23 * matrix2.M31)) + (matrix1.M24 * matrix2.M41);
-		float m22 = (((matrix1.M21 * matrix2.M12) + (matrix1.M22 * matrix2.M22)) + (matrix1.M23 * matrix2.M32)) + (matrix1.M24 * matrix2.M42);
-		float m23 = (((matrix1.M21 * matrix2.M13) + (matrix1.M22 * matrix2.M23)) + (matrix1.M23 * matrix2.M33)) + (matrix1.M24 * matrix2.M43);
-		float m24 = (((matrix1.M21 * matrix2.M14) + (matrix1.M22 * matrix2.M24)) + (matrix1.M23 * matrix2.M34)) + (matrix1.M24 * matrix2.M44);
-		float m31 = (((matrix1.M31 * matrix2.M11) + (matrix1.M32 * matrix2.M21)) + (matrix1.M33 * matrix2.M31)) + (matrix1.M34 * matrix2.M41);
-		float m32 = (((matrix1.M31 * matrix2.M12) + (matrix1.M32 * matrix2.M22)) + (matrix1.M33 * matrix2.M32)) + (matrix1.M34 * matrix2.M42);
-		float m33 = (((matrix1.M31 * matrix2.M13) + (matrix1.M32 * matrix2.M23)) + (matrix1.M33 * matrix2.M33)) + (matrix1.M34 * matrix2.M43);
-		float m34 = (((matrix1.M31 * matrix2.M14) + (matrix1.M32 * matrix2.M24)) + (matrix1.M33 * matrix2.M34)) + (matrix1.M34 * matrix2.M44);
-		float m41 = (((matrix1.M41 * matrix2.M11) + (matrix1.M42 * matrix2.M21)) + (matrix1.M43 * matrix2.M31)) + (matrix1.M44 * matrix2.M41);
-		float m42 = (((matrix1.M41 * matrix2.M12) + (matrix1.M42 * matrix2.M22)) + (matrix1.M43 * matrix2.M32)) + (matrix1.M44 * matrix2.M42);
-		float m43 = (((matrix1.M41 * matrix2.M13) + (matrix1.M42 * matrix2.M23)) + (matrix1.M43 * matrix2.M33)) + (matrix1.M44 * matrix2.M43);
-		float m44 = (((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44);
+		auto m11 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
+		auto m12 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
+		auto m13 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
+		auto m14 = (((matrix1.M11 * matrix2.M14) + (matrix1.M12 * matrix2.M24)) + (matrix1.M13 * matrix2.M34)) + (matrix1.M14 * matrix2.M44);
+		auto m21 = (((matrix1.M21 * matrix2.M11) + (matrix1.M22 * matrix2.M21)) + (matrix1.M23 * matrix2.M31)) + (matrix1.M24 * matrix2.M41);
+		auto m22 = (((matrix1.M21 * matrix2.M12) + (matrix1.M22 * matrix2.M22)) + (matrix1.M23 * matrix2.M32)) + (matrix1.M24 * matrix2.M42);
+		auto m23 = (((matrix1.M21 * matrix2.M13) + (matrix1.M22 * matrix2.M23)) + (matrix1.M23 * matrix2.M33)) + (matrix1.M24 * matrix2.M43);
+		auto m24 = (((matrix1.M21 * matrix2.M14) + (matrix1.M22 * matrix2.M24)) + (matrix1.M23 * matrix2.M34)) + (matrix1.M24 * matrix2.M44);
+		auto m31 = (((matrix1.M31 * matrix2.M11) + (matrix1.M32 * matrix2.M21)) + (matrix1.M33 * matrix2.M31)) + (matrix1.M34 * matrix2.M41);
+		auto m32 = (((matrix1.M31 * matrix2.M12) + (matrix1.M32 * matrix2.M22)) + (matrix1.M33 * matrix2.M32)) + (matrix1.M34 * matrix2.M42);
+		auto m33 = (((matrix1.M31 * matrix2.M13) + (matrix1.M32 * matrix2.M23)) + (matrix1.M33 * matrix2.M33)) + (matrix1.M34 * matrix2.M43);
+		auto m34 = (((matrix1.M31 * matrix2.M14) + (matrix1.M32 * matrix2.M24)) + (matrix1.M33 * matrix2.M34)) + (matrix1.M34 * matrix2.M44);
+		auto m41 = (((matrix1.M41 * matrix2.M11) + (matrix1.M42 * matrix2.M21)) + (matrix1.M43 * matrix2.M31)) + (matrix1.M44 * matrix2.M41);
+		auto m42 = (((matrix1.M41 * matrix2.M12) + (matrix1.M42 * matrix2.M22)) + (matrix1.M43 * matrix2.M32)) + (matrix1.M44 * matrix2.M42);
+		auto m43 = (((matrix1.M41 * matrix2.M13) + (matrix1.M42 * matrix2.M23)) + (matrix1.M43 * matrix2.M33)) + (matrix1.M44 * matrix2.M43);
+		auto m44 = (((matrix1.M41 * matrix2.M14) + (matrix1.M42 * matrix2.M24)) + (matrix1.M43 * matrix2.M34)) + (matrix1.M44 * matrix2.M44);
 
 		Matrix result;
 		result.M11 = m11;
@@ -801,34 +807,34 @@ namespace Xna {
 		float& minor1, float& minor2, float& minor3, float& minor4, float& minor5, float& minor6,
 		float& minor7, float& minor8, float& minor9, float& minor10, float& minor11, float& minor12) {
 
-		//TODO: observar conversão de valores.
+		//TODO: observar conversão de valores para double
 
-		double det1 = (double)matrix.M11 * (double)matrix.M22 - (double)matrix.M12 * (double)matrix.M21;
-		double det2 = (double)matrix.M11 * (double)matrix.M23 - (double)matrix.M13 * (double)matrix.M21;
-		double det3 = (double)matrix.M11 * (double)matrix.M24 - (double)matrix.M14 * (double)matrix.M21;
-		double det4 = (double)matrix.M12 * (double)matrix.M23 - (double)matrix.M13 * (double)matrix.M22;
-		double det5 = (double)matrix.M12 * (double)matrix.M24 - (double)matrix.M14 * (double)matrix.M22;
-		double det6 = (double)matrix.M13 * (double)matrix.M24 - (double)matrix.M14 * (double)matrix.M23;
-		double det7 = (double)matrix.M31 * (double)matrix.M42 - (double)matrix.M32 * (double)matrix.M41;
-		double det8 = (double)matrix.M31 * (double)matrix.M43 - (double)matrix.M33 * (double)matrix.M41;
-		double det9 = (double)matrix.M31 * (double)matrix.M44 - (double)matrix.M34 * (double)matrix.M41;
-		double det10 = (double)matrix.M32 * (double)matrix.M43 - (double)matrix.M33 * (double)matrix.M42;
-		double det11 = (double)matrix.M32 * (double)matrix.M44 - (double)matrix.M34 * (double)matrix.M42;
-		double det12 = (double)matrix.M33 * (double)matrix.M44 - (double)matrix.M34 * (double)matrix.M43;
+		auto det1 = matrix.M11 * matrix.M22 - matrix.M12 * matrix.M21;
+		auto det2 = matrix.M11 * matrix.M23 - matrix.M13 * matrix.M21;
+		auto det3 = matrix.M11 * matrix.M24 - matrix.M14 * matrix.M21;
+		auto det4 = matrix.M12 * matrix.M23 - matrix.M13 * matrix.M22;
+		auto det5 = matrix.M12 * matrix.M24 - matrix.M14 * matrix.M22;
+		auto det6 = matrix.M13 * matrix.M24 - matrix.M14 * matrix.M23;
+		auto det7 = matrix.M31 * matrix.M42 - matrix.M32 * matrix.M41;
+		auto det8 = matrix.M31 * matrix.M43 - matrix.M33 * matrix.M41;
+		auto det9 = matrix.M31 * matrix.M44 - matrix.M34 * matrix.M41;
+		auto det10 = matrix.M32 * matrix.M43 - matrix.M33 * matrix.M42;
+		auto det11 = matrix.M32 * matrix.M44 - matrix.M34 * matrix.M42;
+		auto det12 = matrix.M33 * matrix.M44 - matrix.M34 * matrix.M43;
 
-		major = (float)(det1 * det12 - det2 * det11 + det3 * det10 + det4 * det9 - det5 * det8 + det6 * det7);
-		minor1 = (float)det1;
-		minor2 = (float)det2;
-		minor3 = (float)det3;
-		minor4 = (float)det4;
-		minor5 = (float)det5;
-		minor6 = (float)det6;
-		minor7 = (float)det7;
-		minor8 = (float)det8;
-		minor9 = (float)det9;
-		minor10 = (float)det10;
-		minor11 = (float)det11;
-		minor12 = (float)det12;
+		major = (det1 * det12 - det2 * det11 + det3 * det10 + det4 * det9 - det5 * det8 + det6 * det7);
+		minor1 = det1;
+		minor2 = det2;
+		minor3 = det3;
+		minor4 = det4;
+		minor5 = det5;
+		minor6 = det6;
+		minor7 = det7;
+		minor8 = det8;
+		minor9 = det9;
+		minor10 = det10;
+		minor11 = det11;
+		minor12 = det12;
 	}
 }
 
@@ -962,9 +968,9 @@ namespace Xna {
 		translation.Y = M42;
 		translation.Z = M43;
 
-		float xs = (MathHelper::Sign(M11 * M12 * M13 * M14) < 0) ? -1 : 1;
-		float ys = (MathHelper::Sign(M21 * M22 * M23 * M24) < 0) ? -1 : 1;
-		float zs = (MathHelper::Sign(M31 * M32 * M33 * M34) < 0) ? -1 : 1;
+		float xs = (MathHelper::Sign(M11 * M12 * M13 * M14) < 0) ? -1.F : 1.F;
+		float ys = (MathHelper::Sign(M21 * M22 * M23 * M24) < 0) ? -1.F : 1.F;
+		float zs = (MathHelper::Sign(M31 * M32 * M33 * M34) < 0) ? -1.F : 1.F;
 
 		scale.X = xs * sqrt(M11 * M11 + M12 * M12 + M13 * M13);
 		scale.Y = ys * sqrt(M21 * M21 + M22 * M22 + M23 * M23);
@@ -986,38 +992,53 @@ namespace Xna {
 	}
 
 	float Matrix::Determinant() const {
-		float num22 = M11;
-		float num21 = M12;
-		float num20 = M13;
-		float num19 = M14;
-		float num12 = M21;
-		float num11 = M22;
-		float num10 = M23;
-		float num9 = M24;
-		float num8 = M31;
-		float num7 = M32;
-		float num6 = M33;
-		float num5 = M34;
-		float num4 = M41;
-		float num3 = M42;
-		float num2 = M43;
-		float num = M44;
+		auto num22 = M11;
+		auto num21 = M12;
+		auto num20 = M13;
+		auto num19 = M14;
+		auto num12 = M21;
+		auto num11 = M22;
+		auto num10 = M23;
+		auto num9 = M24;
+		auto num8 = M31;
+		auto num7 = M32;
+		auto num6 = M33;
+		auto num5 = M34;
+		auto num4 = M41;
+		auto num3 = M42;
+		auto num2 = M43;
+		auto num = M44;
 
-		float num18 = (num6 * num) - (num5 * num2);
-		float num17 = (num7 * num) - (num5 * num3);
-		float num16 = (num7 * num2) - (num6 * num3);
-		float num15 = (num8 * num) - (num5 * num4);
-		float num14 = (num8 * num2) - (num6 * num4);
-		float num13 = (num8 * num3) - (num7 * num4);
+		auto num18 = (num6 * num) - (num5 * num2);
+		auto num17 = (num7 * num) - (num5 * num3);
+		auto num16 = (num7 * num2) - (num6 * num3);
+		auto num15 = (num8 * num) - (num5 * num4);
+		auto num14 = (num8 * num2) - (num6 * num4);
+		auto num13 = (num8 * num3) - (num7 * num4);
 
-		return (
-			(((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14))))
-				+ (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13))))
-			- (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13)))
-			);
+		auto expression1 = (((num22 * (((num11 * num18) - (num10 * num17)) + (num9 * num16))) - (num21 * (((num12 * num18) - (num10 * num15)) + (num9 * num14)))));
+		auto expression2 = (num20 * (((num12 * num17) - (num11 * num15)) + (num9 * num13)));
+		auto expression3 = (num19 * (((num12 * num16) - (num11 * num14)) + (num10 * num13)));
+
+		return((expression1 + expression2) - (expression3));
 	}
 
 	bool Matrix::Equals(Matrix const& other) const {
-		return ((((((M11 == other.M11) && (M22 == other.M22)) && ((M33 == other.M33) && (M44 == other.M44))) && (((M12 == other.M12) && (M13 == other.M13)) && ((M14 == other.M14) && (M21 == other.M21)))) && ((((M23 == other.M23) && (M24 == other.M24)) && ((M31 == other.M31) && (M32 == other.M32))) && (((M34 == other.M34) && (M41 == other.M41)) && (M42 == other.M42)))) && (M43 == other.M43));
+		return M11 == other.M11
+			&& M22 == other.M22
+			&& M33 == other.M33
+			&& M44 == other.M44
+			&& M12 == other.M12
+			&& M13 == other.M13
+			&& M14 == other.M14
+			&& M21 == other.M21
+			&& M23 == other.M23
+			&& M24 == other.M24
+			&& M31 == other.M31
+			&& M32 == other.M32
+			&& M34 == other.M34
+			&& M41 == other.M41
+			&& M42 == other.M42
+			&& M43 == other.M43;
 	}
 }

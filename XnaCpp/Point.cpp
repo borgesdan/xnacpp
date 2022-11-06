@@ -4,16 +4,12 @@
 namespace Xna {
 	const Point Zero = Point();
 
-	//----- Constructors -----
-
 	Point::Point() {}
 	Point::Point(int32_t x, int32_t y) :
 		X(x), Y(y) {}
 	Point::Point(Vector2 vector2) :
 		X(static_cast<int32_t>(vector2.X)),
-		Y(static_cast<int32_t>(vector2.Y)){}
-
-	//----- Operators -----
+		Y(static_cast<int32_t>(vector2.Y)){}	
 
 	Point Point::operator-() const {
 		return Point::Negate(*this);
@@ -43,8 +39,6 @@ namespace Xna {
 		return !a.Equals(b);
 	}
 
-	//----- Static Functions -----
-
 	Point Point::Add(Point const& value1, Point const& value2) {
 		return Point(
 			value1.X + value2.X,
@@ -72,9 +66,6 @@ namespace Xna {
 	Point Point::Negate(Point const& value) {
 		return Point(-value.X, -value.Y);
 	}
-
-
-	//----- Functions -----
 
 	bool Point::Equals(Point const& other) const {
 		return X == other.X && Y == other.Y;
