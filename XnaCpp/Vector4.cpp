@@ -1,6 +1,10 @@
 #include <cmath>
 #include "Vector4.hpp"
+#include "Vector2.hpp"
+#include "Vector3.hpp"
 #include "MathHelper.hpp"
+#include "Matrix.hpp"
+#include "Quaternion.hpp"
 
 namespace Xna {
 	const Vector4 Vector4::Zero = Vector4();
@@ -26,8 +30,10 @@ namespace Xna {
 
 	Vector4 Vector4::operator -() const {
 		return Negate(*this);
-	}
+	}	
+}
 
+namespace Xna {
 	Vector4 operator -(Vector4 const& value1, Vector4 const& value2) {
 		return Vector4::Subtract(value1, value2);
 	}
@@ -59,7 +65,9 @@ namespace Xna {
 	bool operator !=(Vector4 const& value1, Vector4 const& value2) {
 		return !value1.Equals(value2);
 	}
+}
 
+namespace Xna {
 	Vector4 Vector4::Add(Vector4 const& value1, Vector4 const& value2) {
 		return Vector4(
 			value1.X + value2.X,
@@ -88,7 +96,7 @@ namespace Xna {
 		return Vector4(
 			ceil(value.X),
 			ceil(value.Y),
-			ceil(value.Z), 
+			ceil(value.Z),
 			ceil(value.W));
 	}
 
@@ -244,6 +252,53 @@ namespace Xna {
 			value1.W - value2.W);
 	}
 
+	Vector4 Vector4::Transform(Vector2 const& value, Matrix const& matrix) {
+		Vector4 result;
+		result.X = (value.X * matrix.M11) + (value.Y * matrix.M21) + matrix.M41;
+		result.Y = (value.X * matrix.M12) + (value.Y * matrix.M22) + matrix.M42;
+		result.Z = (value.X * matrix.M13) + (value.Y * matrix.M23) + matrix.M43;
+		result.W = (value.X * matrix.M14) + (value.Y * matrix.M24) + matrix.M44;
+
+		return result;
+	}
+
+	Vector4 Vector4::Transform(Vector3 const& value, Matrix const& matrix) {
+		Vector4 result;
+		result.X = (value.X * matrix.M11) + (value.Y * matrix.M21) + (value.Z * matrix.M31) + matrix.M41;
+		result.Y = (value.X * matrix.M12) + (value.Y * matrix.M22) + (value.Z * matrix.M32) + matrix.M42;
+		result.Z = (value.X * matrix.M13) + (value.Y * matrix.M23) + (value.Z * matrix.M33) + matrix.M43;
+		result.W = (value.X * matrix.M14) + (value.Y * matrix.M24) + (value.Z * matrix.M34) + matrix.M44;
+
+		return result;
+	}
+
+	Vector4 Vector4::Transform(Vector4 const& value, Matrix const& matrix) {
+		Vector4 result;
+		result.X = (value.X * matrix.M11) + (value.Y * matrix.M21) + (value.Z * matrix.M31) + (value.W * matrix.M41);
+		result.Y = (value.X * matrix.M12) + (value.Y * matrix.M22) + (value.Z * matrix.M32) + (value.W * matrix.M42);
+		result.Z = (value.X * matrix.M13) + (value.Y * matrix.M23) + (value.Z * matrix.M33) + (value.W * matrix.M43);
+		result.W = (value.X * matrix.M14) + (value.Y * matrix.M24) + (value.Z * matrix.M34) + (value.W * matrix.M44);
+		
+		return result;
+	}
+
+	void Vector4::Transform(std::vector<Vector4> const& sourceArray, size_t sourceIndex, Matrix const& matrix,
+		std::vector<Vector4>& destinationArray, size_t destinationIndex, size_t length) {
+		//TODO: Verificar exceçoes
+
+		for (size_t i = 0; i < length; i++)
+		{
+			Vector4 value = sourceArray[sourceIndex + i];
+			destinationArray[destinationIndex + i] = Transform(value, matrix);
+		}
+	}
+
+	void Vector4::Transform(std::vector<Vector4> const& sourceArray, Matrix const& matrix, std::vector<Vector4>& destinationArray) {
+		Transform(sourceArray, 0, matrix, destinationArray, 0, destinationArray.size());
+	}
+}
+
+namespace Xna {
 	void Vector4::Ceiling() {
 		auto value = Ceiling(*this);
 		X = value.X;
@@ -271,7 +326,7 @@ namespace Xna {
 		return sqrt(LengthSquared());
 	}
 
-	float Vector4::LengthSquared() const{
+	float Vector4::LengthSquared() const {
 		return (X * X) + (Y * Y) + (Z * Z) + (W * W);
 	}
 

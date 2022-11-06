@@ -1,14 +1,14 @@
 #include <algorithm>
 #include "Rectangle.hpp"
 #include "Point.hpp"
+#include "Vector2.hpp"
 
 using std::min;
 using std::max;
 
 namespace Xna {
 	const Rectangle Rectangle::Empty = Rectangle();
-
-	//----- Constructors -----
+	
 	Rectangle::Rectangle() {}
 	
 	Rectangle::Rectangle(int32_t x, int32_t y, int32_t width, int32_t height) :
@@ -16,9 +16,10 @@ namespace Xna {
 	
 	Rectangle::Rectangle(Point location, Point size) :
 		X(location.X), Y(location.Y), Width(size.X), Height(size.Y) {}
+}
 
-	//----- Operators -----
-
+//Operators
+namespace Xna {
 	bool operator==(Rectangle const& a, Rectangle const& b) {
 		return a.Equals(b);
 	}
@@ -26,25 +27,26 @@ namespace Xna {
 	bool operator!=(Rectangle const& a, Rectangle const& b) {
 		return !a.Equals(b);
 	}
+}
 
-	//----- Static Functions -----
-
+//Static
+namespace Xna {
 	Rectangle Rectangle::Intersect(Rectangle a, Rectangle b) {
-		
+
 		if (a.Intersects(b)) {
 			int32_t right_side = min(a.X + a.Width, b.X + b.Width);
 			int32_t left_side = max(a.X, b.X);
 			int32_t top_side = max(a.Y, b.Y);
 			int32_t bottom_side = min(a.Y + a.Height, b.Y + b.Height);
-			
+
 			return Rectangle(
-				left_side, 
+				left_side,
 				top_side,
 				right_side - left_side,
 				bottom_side - top_side
 			);
 		}
-		
+
 		return Rectangle::Empty;
 	}
 
@@ -56,8 +58,10 @@ namespace Xna {
 			max(a.Right(), b.Right()) - x,
 			max(a.Bottom(), b.Bottom()) - y);
 	}
+}
 
-	//----- Functions -----
+//Functions
+namespace Xna {
 
 	int32_t Rectangle::Left() const {
 		return X;
@@ -76,7 +80,7 @@ namespace Xna {
 	}
 
 	bool Rectangle::IsEmpty() const {
-		return Width == 0 
+		return Width == 0
 			&& Height == 0
 			&& X == 0
 			&& Y == 0;
@@ -106,9 +110,9 @@ namespace Xna {
 			Y + (Height / 2)
 		);
 	}
-	
+
 	bool Rectangle::Contains(int32_t x, int32_t y) const {
-		return X <= x 
+		return X <= x
 			&& x < (X + Width)
 			&& Y <= y
 			&& y < (Y + Height);
@@ -123,10 +127,10 @@ namespace Xna {
 	}
 
 	bool Rectangle::Contains(Rectangle const& rectangle) const {
-		return X <= rectangle.X 
-			&& rectangle.X + rectangle.Width <= X +  Width
+		return X <= rectangle.X
+			&& rectangle.X + rectangle.Width <= X + Width
 			&& Y <= rectangle.Y
-			&& rectangle.Y + rectangle.Height <= Y +  Height;
+			&& rectangle.Y + rectangle.Height <= Y + Height;
 	}
 
 	bool Rectangle::Equals(Rectangle const& other) const {
@@ -172,5 +176,9 @@ namespace Xna {
 		y = Y;
 		width = Width;
 		height = Height;
+	}
+
+	bool Rectangle::Contains(Vector2 const& vector2) const {
+		return ((((X <= vector2.X) && (vector2.X < (X + Width))) && (Y <= vector2.Y)) && (vector2.Y < (Y + Height)));
 	}
 }

@@ -1,10 +1,15 @@
 #ifndef _VECTOR4_HPP_
 #define _VECTOR4_HPP_
 
-#include "Vector2.hpp"
-#include "Vector3.hpp"
+#include <vector>
 
 namespace Xna {
+
+	struct Vector2;
+	struct Vector3;
+	struct Quaternion;
+	struct Matrix;
+
 	struct Vector4 {
 		float X{ 0 };
 		float Y{ 0 };
@@ -58,7 +63,17 @@ namespace Xna {
 		static Vector4 SmoothStep(Vector4 const& value1, Vector4 const& value2, float amount);
 		static Vector4 Subtract(Vector4 const& value1, Vector4 const& value2);
 
-		//TODO: implementar métodos Transform
+		static Vector4 Transform(Vector2 const& value, Matrix const& matrix);
+		//TODO: Não implementado - static Vector4 Transform(Vector2 const& value, Quaternion const& rotation);
+		static Vector4 Transform(Vector3 const& value, Matrix const& matrix);
+		//TODO: Não implementado - static Vector4 Transform(Vector3 const& value, Quaternion const& rotation);
+		static Vector4 Transform(Vector4 const& value, Matrix const& matrix);
+		//TODO: Não implementado - static Vector4 Transform(Vector4 const& value, Quaternion const& rotation);
+		static void Transform(std::vector<Vector4> const& sourceArray, size_t sourceIndex, Matrix const& matrix,
+			std::vector<Vector4>& destinationArray, size_t destinationIndex, size_t length);
+		//TODO: Não implementado - static void Transform(std::vector<Vector4> const& sourceArray, size_t sourceIndex, Quaternion const& rotation, std::vector<Vector4>& destinationArray, size_t destinationIndex, size_t length);
+		static void Transform(std::vector<Vector4> const& sourceArray, Matrix const& matrix, std::vector<Vector4>& destinationArray);
+		//TODO: Não impleentado - static void Transform(std::vector<Vector4> const& sourceArray, Quaternion const& rotation, std::vector<Vector4>& destinationArray);
 
 		void Ceiling();
 		bool Equals(Vector4 const& other) const;

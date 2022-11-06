@@ -1,9 +1,13 @@
 #ifndef _VECTOR2_HPP_
 #define _VECTOR2_HPP_
 
-#include "Point.hpp"
+#include <vector>
 
 namespace Xna {	
+
+	struct Point;
+	struct Matrix;
+	struct Quaternion;
 
 	struct Vector2 {
 		float X{ 0 };
@@ -55,8 +59,19 @@ namespace Xna {
 		static Vector2 Round(Vector2 const& value);
 		static Vector2 SmoothStep(Vector2 const& value1, Vector2 const& value2, float amount);
 		static Vector2 Subtract(Vector2 const& value1, Vector2 const& value2);
-
-		//TODO: Implementar os métodos de transformação
+		
+		static Vector2 Transform(Vector2 const& position, Matrix const& matrix);
+		static Vector2 Transform(Vector2 const& value, Quaternion const& rotation);
+		static void Transform(std::vector<Vector2> const& sourceArray, size_t sourceIndex, Matrix const& matrix,
+			std::vector<Vector2>& destinationArray, size_t destinationIndex, size_t length);
+		static void Transform(std::vector<Vector2> const& sourceArray, size_t sourceIndex, Quaternion const& rotation,
+			std::vector<Vector2>& destinationArray, size_t destinationIndex, size_t length);
+		static void Transform(std::vector<Vector2> const& sourceArray, Matrix const& matrix, std::vector<Vector2>& destinationArray);
+		static void Transform(std::vector<Vector2> const& sourceArray, Quaternion const& rotation, std::vector<Vector2>& destinationArray);
+		static Vector2 TransformNormal(Vector2 const& normal, Matrix const& matrix);
+		static void TransformNormal(std::vector<Vector2> sourceArray, size_t sourceIndex, Matrix const& matrix,
+			std::vector<Vector2>& destinationArray, size_t destinationIndex, size_t length);
+		static void TransformNormal(std::vector<Vector2> sourceArray, Matrix const& matrix,	std::vector<Vector2>& destinationArray);
 
 		void Ceiling();
 		bool Equals(Vector2 const& other) const;
@@ -65,7 +80,6 @@ namespace Xna {
 		float LengthSquared() const;
 		void Normalize();
 		void Round();
-		Point ToPoint() const;
 		void Deconstruct(float& x, float& y) const;
 	};
 }

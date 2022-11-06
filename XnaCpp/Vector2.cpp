@@ -1,7 +1,13 @@
 #include <cmath>
 #include "Vector2.hpp"
+#include "Point.hpp"
 #include "MathHelper.hpp"
+#include "Matrix.hpp"
+#include "Quaternion.hpp"
 
+using std::vector;
+
+//Constructors
 namespace Xna {
 	const Vector2 Vector2::Zero = Vector2(0);
 	const Vector2 Vector2::One = Vector2(1);
@@ -11,7 +17,10 @@ namespace Xna {
 	Vector2::Vector2() {}
 	Vector2::Vector2(float x, float y) : X(X), Y(y) {}
 	Vector2::Vector2(float value) : X(value), Y(value) {}
+}
 
+//Operators
+namespace Xna {
 	Vector2 Vector2::operator -() const {
 		return Negate(*this);
 	}
@@ -47,7 +56,10 @@ namespace Xna {
 	bool operator !=(Vector2 const& value1, Vector2 const& value2) {
 		return !value1.Equals(value2);
 	}
+}
 
+//Static
+namespace Xna {
 	Vector2 Vector2::Add(Vector2 const& value1, Vector2 const& value2) {
 		return Vector2(
 			value1.X + value2.X,
@@ -109,12 +121,11 @@ namespace Xna {
 	Vector2 Vector2::Floor(Vector2 const& value) {
 		return Vector2(
 			floor(value.X),
-			floor(value.Y));		
+			floor(value.Y));
 	}
 
 	Vector2 Vector2::Hermite(Vector2 const& value1, Vector2 const& tangent1,
 		Vector2 const& value2, Vector2 const& tangent2, float amount) {
-		
 		return Vector2(
 			MathHelper::Hermite(value1.X, tangent1.X, value2.X, tangent2.X, amount),
 			MathHelper::Hermite(value1.Y, tangent1.Y, value2.Y, tangent2.Y, amount));
@@ -161,13 +172,13 @@ namespace Xna {
 	}
 
 	Vector2 Vector2::Normalize(Vector2 const& value) {
-		float val = 1.0F / sqrt((value.X * value.X) + (value.Y * value.Y));		
+		auto val = 1.0F / sqrt((value.X * value.X) + (value.Y * value.Y));
 		return Vector2(value.X * val, value.Y * val);
 	}
 
-	Vector2 Vector2::Reflect(Vector2 const& vector, Vector2 const& normal) {		
-		float val = 2.0F * ((vector.X * normal.X) + (vector.Y * normal.Y));
-		
+	Vector2 Vector2::Reflect(Vector2 const& vector, Vector2 const& normal) {
+		auto val = 2.0F * ((vector.X * normal.X) + (vector.Y * normal.Y));
+
 		return Vector2(
 			vector.X - (normal.X * val),
 			vector.Y - (normal.Y * val)
@@ -186,12 +197,98 @@ namespace Xna {
 			MathHelper::SmoothStep(value1.Y, value2.Y, amount));
 	}
 
-	Vector2 Vector2::Subtract(Vector2 const& value1, Vector2 const& value2) {		
+	Vector2 Vector2::Subtract(Vector2 const& value1, Vector2 const& value2) {
 		return Vector2(
 			value1.X - value2.X,
 			value1.Y - value2.Y);
 	}
 
+	Vector2 Vector2::Transform(Vector2 const& position, Matrix const& matrix) {
+		return Vector2(
+			(position.X * matrix.M11) + (position.Y * matrix.M21) + matrix.M41,
+			(position.X * matrix.M12) + (position.Y * matrix.M22) + matrix.M42);
+	}
+
+	Vector2 Vector2::Transform(Vector2 const& value, Quaternion const& rotation) {
+		auto rot1 = Vector3(rotation.X + rotation.X, rotation.Y + rotation.Y, rotation.Z + rotation.Z);
+		auto rot2 = Vector3(rotation.X, rotation.X, rotation.W);
+		auto rot3 = Vector3(1, rotation.Y, rotation.Z);
+		auto rot4 = rot1 * rot2;
+		auto rot5 = rot1 * rot3;
+
+		//TODO: Verificar utilização de double no código original
+		Vector2 v;
+		v.X = value.X * (1.0F - rot5.Y - rot5.Z) + value.Y * (rot4.Y - rot4.Z);
+		v.Y = value.X * (rot4.Y + rot4.Z) + value.Y * (1.0F - rot4.X - rot5.Z);
+
+		return v;
+	}
+
+	void Vector2::Transform(vector<Vector2> const& sourceArray, size_t sourceIndex, Matrix const& matrix,
+		vector<Vector2>& destinationArray, size_t destinationIndex, size_t length) {
+
+		//TODO: Verificar exceções
+
+		for (size_t x = 0; x < length; x++)
+		{
+			Vector2 position = sourceArray[sourceIndex + x];
+			Vector2 destination = destinationArray[destinationIndex + x];
+
+			destinationArray[destinationIndex + x] = Vector2(
+				(position.X * matrix.M11) + (position.Y * matrix.M21) + matrix.M41,
+				(position.X * matrix.M12) + (position.Y * matrix.M22) + matrix.M42);
+		}
+	}
+
+	void Vector2::Transform(vector<Vector2> const& sourceArray, size_t sourceIndex, Quaternion const& rotation,
+		vector<Vector2>& destinationArray, size_t destinationIndex, size_t length) {
+
+		//TODO: Verificar exceções
+
+		for (size_t x = 0; x < length; x++)
+		{
+			Vector2 position = sourceArray[sourceIndex + x];
+			Vector2 destination = destinationArray[destinationIndex + x];
+
+			destinationArray[destinationIndex + x] = Transform(position, rotation);
+		}
+	}
+
+	void Vector2::Transform(std::vector<Vector2> const& sourceArray, Matrix const& matrix, std::vector<Vector2>& destinationArray) {
+		Transform(sourceArray, 0, matrix, destinationArray, 0, sourceArray.size());
+	}
+
+	void Vector2::Transform(std::vector<Vector2> const& sourceArray, Quaternion const& rotation, std::vector<Vector2>& destinationArray) {
+		Transform(sourceArray, 0, rotation, destinationArray, 0, sourceArray.size());
+	}
+
+	Vector2 Vector2::TransformNormal(Vector2 const& normal, Matrix const& matrix) {
+		return Vector2(
+			(normal.X * matrix.M11) + (normal.Y * matrix.M21),
+			(normal.X * matrix.M12) + (normal.Y * matrix.M22));
+	}
+
+	void Vector2::TransformNormal(std::vector<Vector2> sourceArray, size_t sourceIndex, Matrix const& matrix,
+		std::vector<Vector2>& destinationArray, size_t destinationIndex, size_t length) {
+		//TODO: verificar exceções
+
+		for (size_t i = 0; i < length; i++)
+		{
+			Vector2 normal = sourceArray[sourceIndex + i];
+
+			destinationArray[destinationIndex + i] = Vector2(
+				(normal.X * matrix.M11) + (normal.Y * matrix.M21),
+				(normal.X * matrix.M12) + (normal.Y * matrix.M22));
+		}
+	}
+	void Vector2::TransformNormal(std::vector<Vector2> sourceArray, Matrix const& matrix, std::vector<Vector2>& destinationArray) {
+		TransformNormal(sourceArray, 0, matrix, destinationArray, 0, sourceArray.size());
+	}
+
+}
+
+//Functions
+namespace Xna {
 	void Vector2::Ceiling() {
 		auto value = Ceiling(*this);
 		X = value.X;
@@ -199,7 +296,7 @@ namespace Xna {
 	}
 
 	bool Vector2::Equals(Vector2 const& other) const {
-		return (X == other.X) && (Y == other.Y);
+		return X == other.X && Y == other.Y;
 	}
 
 	void Vector2::Floor() {
@@ -226,12 +323,6 @@ namespace Xna {
 		auto value = Round(*this);
 		X = value.X;
 		Y = value.Y;
-	}
-
-	Point Vector2::ToPoint() const {
-		return Point(
-			static_cast<int32_t>(X),
-			static_cast<int32_t>(Y));
 	}
 
 	void Vector2::Deconstruct(float& x, float& y) const {

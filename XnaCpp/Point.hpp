@@ -4,6 +4,9 @@
 #include <stdint.h>
 
 namespace Xna {
+
+	struct Vector2;
+
 	struct Point {
 		int32_t X{ 0 };
 		int32_t Y{ 0 };
@@ -12,6 +15,7 @@ namespace Xna {
 
 		Point();
 		Point(int32_t x, int32_t y);
+		Point(Vector2 vector2);
 
 		Point operator-() const;
 		friend Point operator+ (Point const& value1, Point const& value2);
@@ -25,6 +29,7 @@ namespace Xna {
 		static Point Subtract(Point const& value1, Point const& value2);
 		static Point Multiply(Point const& value1, Point const& value2);
 		static Point Divide(Point const& value1, Point const& divisor);
+		static Point Negate(Point const& value);
 
 		bool Equals(Point const& other) const;
 		void Deconstruct(int32_t& x, int32_t& y);

@@ -6,6 +6,7 @@
 namespace Xna {
 
 	struct Point;
+	struct Vector2;
 
 	struct Rectangle {
 
@@ -46,7 +47,7 @@ namespace Xna {
 		void Offset(int32_t x, int32_t y);
 		void Offset(float x, float y);
 		void Offset(Point const& amount);
-		// TODO: criar método bool Contains(Vector2 const& vector2) const;
+		bool Contains(Vector2 const& vector2) const;
 		bool Equals(Rectangle const& other) const;
 		void Deconstruct(int32_t& x, int32_t& y, int32_t& width, int32_t& height) const;
 	};

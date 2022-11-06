@@ -1,4 +1,5 @@
 #include "Point.hpp"
+#include "Vector2.hpp"
 
 namespace Xna {
 	const Point Zero = Point();
@@ -8,11 +9,14 @@ namespace Xna {
 	Point::Point() {}
 	Point::Point(int32_t x, int32_t y) :
 		X(x), Y(y) {}
+	Point::Point(Vector2 vector2) :
+		X(static_cast<int32_t>(vector2.X)),
+		Y(static_cast<int32_t>(vector2.Y)){}
 
 	//----- Operators -----
 
 	Point Point::operator-() const {
-		return Point(-X, -Y);
+		return Point::Negate(*this);
 	}
 
 	Point operator+ (Point const& value1, Point const& value2) {
@@ -63,6 +67,10 @@ namespace Xna {
 		return Point(
 			value1.X * divisor.X,
 			value1.Y * divisor.Y);
+	}
+
+	Point Point::Negate(Point const& value) {
+		return Point(-value.X, -value.Y);
 	}
 
 
