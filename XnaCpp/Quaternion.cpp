@@ -1,5 +1,8 @@
 #include <cmath>
 #include "Quaternion.hpp"
+#include "Vector3.hpp"
+#include "Vector4.hpp"
+#include "Matrix.hpp"
 
 //Constructors
 namespace Xna {
@@ -59,27 +62,25 @@ namespace Xna {
 			quaternion1.X + quaternion2.X,
 			quaternion1.Y + quaternion2.Y,
 			quaternion1.Z + quaternion2.Z,
-			quaternion1.W + quaternion2.W
-		);
+			quaternion1.W + quaternion2.W);
 	}
 
 	Quaternion Quaternion::Concatenate(Quaternion const& value1, Quaternion const& value2) {
-		float x1 = value1.X;
-		float y1 = value1.Y;
-		float z1 = value1.Z;
-		float w1 = value1.W;
+		auto x1 = value1.X;
+		auto y1 = value1.Y;
+		auto z1 = value1.Z;
+		auto w1 = value1.W;
 
-		float x2 = value2.X;
-		float y2 = value2.Y;
-		float z2 = value2.Z;
-		float w2 = value2.W;
+		auto x2 = value2.X;
+		auto y2 = value2.Y;
+		auto z2 = value2.Z;
+		auto w2 = value2.W;
 
 		return Quaternion(
 			((x2 * w1) + (x1 * w2)) + ((y2 * z1) - (z2 * y1)),
 			((y2 * w1) + (y1 * w2)) + ((z2 * x1) - (x2 * z1)),
 			((z2 * w1) + (z1 * w2)) + ((x2 * y1) - (y2 * x1)),
-			(w2 * w1) - (((x2 * x1) + (y2 * y1)) + (z2 * z1))
-		);
+			(w2 * w1) - (((x2 * x1) + (y2 * y1)) + (z2 * z1)));
 	}
 
 	Quaternion Quaternion::Conjugate(Quaternion const& value) {
@@ -87,43 +88,41 @@ namespace Xna {
 	}
 
 	Quaternion Quaternion::CreateFromAxisAngle(Vector3 const& axis, float angle) {
-		float half = angle * 0.5f;
-		float _sin = sin(half);
-		float _cos = cos(half);
+		auto half = angle * 0.5f;
+		auto _sin = sin(half);
+		auto _cos = cos(half);
 
 		return Quaternion(
 			axis.X * _sin,
 			axis.Y * _sin,
 			axis.Z * _sin,
-			_cos
-		);
+			_cos);
 	}
 
 	Quaternion Quaternion::CreateFromYawPitchRoll(float yaw, float pitch, float roll) {
-		float halfRoll = roll * 0.5f;
-		float halfPitch = pitch * 0.5f;
-		float halfYaw = yaw * 0.5f;
+		auto halfRoll = roll * 0.5f;
+		auto halfPitch = pitch * 0.5f;
+		auto halfYaw = yaw * 0.5f;
 
-		float sinRoll = sin(halfRoll);
-		float cosRoll = cos(halfRoll);
-		float sinPitch = sin(halfPitch);
-		float cosPitch = cos(halfPitch);
-		float sinYaw = sin(halfYaw);
-		float cosYaw = cos(halfYaw);
+		auto sinRoll = sin(halfRoll);
+		auto cosRoll = cos(halfRoll);
+		auto sinPitch = sin(halfPitch);
+		auto cosPitch = cos(halfPitch);
+		auto sinYaw = sin(halfYaw);
+		auto cosYaw = cos(halfYaw);
 
 		return Quaternion(
 			(cosYaw * sinPitch * cosRoll) + (sinYaw * cosPitch * sinRoll),
 			(sinYaw * cosPitch * cosRoll) - (cosYaw * sinPitch * sinRoll),
 			(cosYaw * cosPitch * sinRoll) - (sinYaw * sinPitch * cosRoll),
-			(cosYaw * cosPitch * cosRoll) + (sinYaw * sinPitch * sinRoll)
-		);
+			(cosYaw * cosPitch * cosRoll) + (sinYaw * sinPitch * sinRoll));
 	}
 
 	Quaternion Quaternion::CreateFromRotationMatrix(Matrix const& matrix) {
 		Quaternion quaternion;
 		float _sqrt;
 		float half;
-		float scale = matrix.M11 + matrix.M22 + matrix.M33;
+		auto scale = matrix.M11 + matrix.M22 + matrix.M33;
 
 		if (scale > 0.0f) {
 			_sqrt = sqrt(scale + 1.0f);
@@ -136,8 +135,7 @@ namespace Xna {
 
 			return quaternion;
 		}
-		if ((matrix.M11 >= matrix.M22) && (matrix.M11 >= matrix.M33))
-		{
+		if ((matrix.M11 >= matrix.M22) && (matrix.M11 >= matrix.M33)) {
 			_sqrt = sqrt(1.0f + matrix.M11 - matrix.M22 - matrix.M33);
 			half = 0.5f / _sqrt;
 
@@ -148,8 +146,7 @@ namespace Xna {
 
 			return quaternion;
 		}
-		if (matrix.M22 > matrix.M33)
-		{
+		if (matrix.M22 > matrix.M33) {
 			_sqrt = sqrt(1.0f + matrix.M22 - matrix.M11 - matrix.M33);
 			half = 0.5f / _sqrt;
 
@@ -160,6 +157,7 @@ namespace Xna {
 
 			return quaternion;
 		}
+
 		_sqrt = sqrt(1.0f + matrix.M33 - matrix.M11 - matrix.M22);
 		half = 0.5f / _sqrt;
 
@@ -172,27 +170,26 @@ namespace Xna {
 	}
 
 	Quaternion Quaternion::Divide(Quaternion const& quaternion1, Quaternion const& quaternion2) {
-		float x = quaternion1.X;
-		float y = quaternion1.Y;
-		float z = quaternion1.Z;
-		float w = quaternion1.W;
-		float num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
-		float num5 = 1.0f / num14;
-		float num4 = -quaternion2.X * num5;
-		float num3 = -quaternion2.Y * num5;
-		float num2 = -quaternion2.Z * num5;
-		float num = quaternion2.W * num5;
-		float num13 = (y * num2) - (z * num3);
-		float num12 = (z * num4) - (x * num2);
-		float num11 = (x * num3) - (y * num4);
-		float num10 = ((x * num4) + (y * num3)) + (z * num2);
+		auto x = quaternion1.X;
+		auto y = quaternion1.Y;
+		auto z = quaternion1.Z;
+		auto w = quaternion1.W;
+		auto num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
+		auto num5 = 1.0f / num14;
+		auto num4 = -quaternion2.X * num5;
+		auto num3 = -quaternion2.Y * num5;
+		auto num2 = -quaternion2.Z * num5;
+		auto num = quaternion2.W * num5;
+		auto num13 = (y * num2) - (z * num3);
+		auto num12 = (z * num4) - (x * num2);
+		auto num11 = (x * num3) - (y * num4);
+		auto num10 = ((x * num4) + (y * num3)) + (z * num2);
 
 		return Quaternion(
 			((x * num) + (num4 * w)) + num13,
 			((y * num) + (num3 * w)) + num12,
 			((z * num) + (num2 * w)) + num11,
-			(w * num) - num10
-		);
+			(w * num) - num10);
 	}
 
 	float Quaternion::Dot(Quaternion const& quaternion1, Quaternion const& quaternion2) {
@@ -200,23 +197,22 @@ namespace Xna {
 	}
 
 	Quaternion Quaternion::Inverse(Quaternion const& quaternion) {
-		float num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
-		float num = 1.0F / num2;
+		auto num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
+		auto num = 1.0F / num2;
 
 		return Quaternion(
 			-quaternion.X * num,
 			-quaternion.Y * num,
 			-quaternion.Z * num,
-			quaternion.W * num
-		);
+			quaternion.W * num);
 	}
 
 	Quaternion Quaternion::Lerp(Quaternion const& quaternion1, Quaternion const& quaternion2, float amount) {
-		float num = amount;
-		float num2 = 1.0F - num;
+		auto num = amount;
+		auto num2 = 1.0F - num;
 		Quaternion quaternion;
 
-		float num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+		auto num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
 
 		if (num5 >= 0.0F) {
 			quaternion.X = (num2 * quaternion1.X) + (num * quaternion2.X);
@@ -231,8 +227,8 @@ namespace Xna {
 			quaternion.W = (num2 * quaternion1.W) - (num * quaternion2.W);
 		}
 
-		float num4 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
-		float num3 = 1.0F / sqrt(num4);
+		auto num4 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
+		auto num3 = 1.0F / sqrt(num4);
 
 		quaternion.X *= num3;
 		quaternion.Y *= num3;
@@ -244,29 +240,28 @@ namespace Xna {
 
 	Quaternion Quaternion::Slerp(Quaternion const& quaternion1, Quaternion const& quaternion2, float amount) {
 		float num2;
-		float num3;
-		Quaternion quaternion;
-		float num = amount;
-		float num4 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
-		bool flag = false;
-		if (num4 < 0.0F)
-		{
+		float num3;		
+		auto num = amount;
+		auto num4 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+		auto flag = false;
+
+		if (num4 < 0.0F) {
 			flag = true;
 			num4 = -num4;
 		}
-		if (num4 > 0.999999F)
-		{
+		if (num4 > 0.999999F) {
 			num3 = 1.0F - num;
 			num2 = flag ? -num : num;
 		}
-		else
-		{
-			float num5 = acos(num4);
-			float num6 = static_cast<float>(1.0 / sin((double)num5));
+		else {
+			auto num5 = acos(num4);
+			//TODO: verificar uso de double
+			auto num6 = 1.0F / sin(num5);
 			num3 = sin((1.0F - num) * num5) * num6;
 			num2 = flag ? (-sin(num * num5) * num6) : (sin(num * num5) * num6);
 		}
 
+		Quaternion quaternion;
 		quaternion.X = (num3 * quaternion1.X) + (num2 * quaternion2.X);
 		quaternion.Y = (num3 * quaternion1.Y) + (num2 * quaternion2.Y);
 		quaternion.Z = (num3 * quaternion1.Z) + (num2 * quaternion2.Z);
@@ -285,19 +280,20 @@ namespace Xna {
 	}
 
 	Quaternion Quaternion::Multiply(Quaternion const& quaternion1, Quaternion const& quaternion2) {
+		auto x = quaternion1.X;
+		auto y = quaternion1.Y;
+		auto z = quaternion1.Z;
+		auto w = quaternion1.W;
+		auto num4 = quaternion2.X;
+		auto num3 = quaternion2.Y;
+		auto num2 = quaternion2.Z;
+		auto num = quaternion2.W;
+		auto num12 = (y * num2) - (z * num3);
+		auto num11 = (z * num4) - (x * num2);
+		auto num10 = (x * num3) - (y * num4);
+		auto num9 = ((x * num4) + (y * num3)) + (z * num2);
+		
 		Quaternion quaternion;
-		float x = quaternion1.X;
-		float y = quaternion1.Y;
-		float z = quaternion1.Z;
-		float w = quaternion1.W;
-		float num4 = quaternion2.X;
-		float num3 = quaternion2.Y;
-		float num2 = quaternion2.Z;
-		float num = quaternion2.W;
-		float num12 = (y * num2) - (z * num3);
-		float num11 = (z * num4) - (x * num2);
-		float num10 = (x * num3) - (y * num4);
-		float num9 = ((x * num4) + (y * num3)) + (z * num2);
 		quaternion.X = ((x * num) + (num4 * w)) + num12;
 		quaternion.Y = ((y * num) + (num3 * w)) + num11;
 		quaternion.Z = ((z * num) + (num2 * w)) + num10;
@@ -311,8 +307,7 @@ namespace Xna {
 			quaternion1.X * scaleFactor,
 			quaternion1.Y * scaleFactor,
 			quaternion1.Z * scaleFactor,
-			quaternion1.W * scaleFactor
-		);
+			quaternion1.W * scaleFactor);
 	}
 	
 	Quaternion Quaternion::Negate(Quaternion const& quaternion) {
@@ -320,14 +315,13 @@ namespace Xna {
 	}
 
 	Quaternion Quaternion::Normalize(Quaternion const& quaternion) {
-		float num = 1.0F / sqrt((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y) + (quaternion.Z * quaternion.Z) + (quaternion.W * quaternion.W));
+		auto num = 1.0F / sqrt((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y) + (quaternion.Z * quaternion.Z) + (quaternion.W * quaternion.W));
 		
 		return Quaternion(
 			quaternion.X * num,
 			quaternion.Y * num,
 			quaternion.Z * num,
-			quaternion.W * num
-		);
+			quaternion.W * num);
 	}
 }
 

@@ -1,9 +1,14 @@
 #ifndef _VECTOR3_HPP_
 #define _VECTOR3_HPP_
 
-#include "Vector2.hpp"
+#include <vector>
 
 namespace Xna {
+
+	struct Vector2;
+	struct Matrix;
+	struct Quaternion;
+
 	struct Vector3 {
 		float X{ 0 };
 		float Y{ 0 };
@@ -62,7 +67,19 @@ namespace Xna {
 		static Vector3 SmoothStep(Vector3 const& value1, Vector3 const& value2, float amount);
 		static Vector3 Subtract(Vector3 const& value1, Vector3 const& value2);
 
-		//TODO: Adicionar os métodos Transform
+		static Vector3 Transform(Vector3 const& position, Matrix const& matrix);
+		static Vector3 Transform(Vector3 const& value, Quaternion const& rotation);
+		static void Transform(std::vector<Vector3> const& sourceArray, size_t sourceIndex, Matrix const& matrix,
+			std::vector<Vector3>& destinationArray, size_t destinationIndex, size_t length);
+		static void Transform(std::vector<Vector3> const& sourceArray, size_t sourceIndex, Quaternion const& rotation,
+			std::vector<Vector3>& destinationArray, size_t destinationIndex, size_t length);
+		static void Transform(std::vector<Vector3> const& sourceArray, Matrix const& matrix, std::vector<Vector3>& destinationArray);
+		static void Transform(std::vector<Vector3> const& sourceArray, Quaternion const& rotation, std::vector<Vector3>& destinationArray);
+		static Vector3 TransformNormal(Vector3 const& normal, Matrix const& matrix);
+		static void TransformNormal(std::vector<Vector3> sourceArray, size_t sourceIndex, Matrix const& matrix,
+			std::vector<Vector3>& destinationArray, size_t destinationIndex, size_t length);
+		static void TransformNormal(std::vector<Vector3> sourceArray, Matrix const& matrix, std::vector<Vector3>& destinationArray);
+
 
 		void Ceiling();
 		bool Equals(Vector3 const& other) const;

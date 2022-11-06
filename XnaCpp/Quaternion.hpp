@@ -1,11 +1,12 @@
 #ifndef _QUATERNION_HPP_
 #define _QUATERNION_HPP_
 
-#include "Vector3.hpp"
-#include "Vector4.hpp"
-#include "Matrix.hpp"
-
 namespace Xna {
+
+	struct Vector3;
+	struct Vector4;
+	struct Matrix;
+
 	struct Quaternion {
 		float X{ 0 };
 		float Y{ 0 };
