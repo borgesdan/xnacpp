@@ -25,6 +25,8 @@ namespace Xna {
 		static const Vector3 Right;
 		static const Vector3 Forward;
 		static const Vector3 Backward;
+		static const Vector3 MaxVector3;
+		static const Vector3 MinVector3;
 
 		Vector3();
 		Vector3(float value);

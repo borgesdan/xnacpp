@@ -17,7 +17,7 @@ add_executable (XnaCpp
 			"Vector4.cpp"
 			"Color.cpp"
 			"Quaternion.cpp"
-			"Matrix.cpp")
+			"Matrix.cpp" "PlaneIntersectionType.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET XnaCpp PROPERTY CXX_STANDARD 20)
