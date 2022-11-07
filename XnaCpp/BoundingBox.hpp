@@ -10,7 +10,7 @@
 
 namespace Xna {
 
-	struct BoundingFrustum;
+	class BoundingFrustum;
 	struct BoundingSphere;
 	struct Plane;
 	struct Ray;
@@ -26,7 +26,6 @@ namespace Xna {
 		
 		friend bool operator ==(BoundingBox a, BoundingBox b);
 		friend bool operator !=(BoundingBox a, BoundingBox b);
-
 
 		static BoundingBox CreateFromPoints(std::vector<Vector3> points,
 			int32_t index = 0, int32_t count = -1);
