@@ -1,8 +1,8 @@
 #include<cmath>
 #include "Ray.hpp"
-#include "BoundingBox.hpp";
-#include "BoundingSphere.hpp";
-#include "Plane.hpp";
+#include "BoundingBox.hpp"
+#include "BoundingSphere.hpp"
+#include "Plane.hpp"
 
 using CSharp::Nullable;
 using CSharp::csnull;

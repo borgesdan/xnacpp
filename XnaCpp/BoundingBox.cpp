@@ -1,9 +1,9 @@
 #include <algorithm>
 #include "BoundingBox.hpp"
-#include "BoundingFrustum.hpp";
-#include "BoundingSphere.hpp";
-#include "Plane.hpp";
-#include "Ray.hpp";
+#include "BoundingFrustum.hpp"
+#include "BoundingSphere.hpp"
+#include "Plane.hpp"
+#include "Ray.hpp"
 
 using std::max;
 using std::min;
@@ -26,7 +26,7 @@ namespace Xna {
 }
 
 namespace Xna {
-	BoundingBox BoundingBox::CreateFromPoints(std::vector<Vector3> points, int32_t index, int32_t count) {
+	BoundingBox BoundingBox::CreateFromPoints(std::vector<Vector3> points, int32_t index, size_t count) {
 		//TODO: Verificar exceções
 
 		if (count == -1)

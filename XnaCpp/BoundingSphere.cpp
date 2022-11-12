@@ -1,10 +1,10 @@
 #include <limits>
 #include "BoundingSphere.hpp"
-#include "BoundingBox.hpp";
-#include "BoundingFrustum.hpp";
-#include "Plane.hpp";
-#include "Ray.hpp";
-#include "Matrix.hpp";
+#include "BoundingBox.hpp"
+#include "BoundingFrustum.hpp"
+#include "Plane.hpp"
+#include "Ray.hpp"
+#include "Matrix.hpp"
 
 using std::numeric_limits;
 using std::max;
@@ -102,7 +102,7 @@ namespace Xna {
 			auto sqDist = diff.LengthSquared();
 
 			if (sqDist > sqRadius) {
-				auto distance = sqrt(sqDist);
+				auto distance = sqrtf(sqDist);
 				auto direction = diff / distance;
 				auto G = center - radius * direction;
 				center = (G + pt) / 2;
@@ -259,7 +259,8 @@ namespace Xna {
 		BoundingSphere sphere;
 		
 		sphere.Center = Vector3::Transform(Center, matrix);
-		sphere.Radius = Radius * sqrt(max(((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12)) + (matrix.M13 * matrix.M13), max(((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22)) + (matrix.M23 * matrix.M23), ((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32)) + (matrix.M33 * matrix.M33))));
+		sphere.Radius = Radius * sqrtf(max(((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12)) + (matrix.M13 * matrix.M13), 
+				max(((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22)) + (matrix.M23 * matrix.M23), ((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32)) + (matrix.M33 * matrix.M33))));
 		
 		return sphere;
 	}

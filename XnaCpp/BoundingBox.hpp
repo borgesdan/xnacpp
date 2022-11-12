@@ -27,8 +27,7 @@ namespace Xna {
 		friend bool operator ==(BoundingBox const& a, BoundingBox const& b);
 		friend bool operator !=(BoundingBox const& a, BoundingBox const& b);
 
-		static BoundingBox CreateFromPoints(std::vector<Vector3> points,
-			int32_t index = 0, int32_t count = -1);
+		static BoundingBox CreateFromPoints(std::vector<Vector3> points, int32_t index = 0, size_t count = -1);
 		static BoundingBox CreateFromSphere(BoundingSphere const& sphere);
 		static BoundingBox CreateMerged(BoundingBox const& original, BoundingBox const& additional);
 
