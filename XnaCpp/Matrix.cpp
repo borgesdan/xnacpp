@@ -892,11 +892,11 @@ namespace Xna {
 	}
 
 	float Matrix::This(int32_t row, int32_t column) const {
-		return Index((row * 4) + column);
+		return This((row * 4) + column);
 	}
 
 	void Matrix::This(int32_t row, int32_t column, float value) {
-		Index((row * 4) + column, value);
+		This((row * 4) + column, value);
 	}
 
 	Vector3 Matrix::Backward() const {

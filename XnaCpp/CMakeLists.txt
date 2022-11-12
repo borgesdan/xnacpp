@@ -24,7 +24,7 @@ add_executable (XnaCpp
 			"Quaternion.cpp"
 			"Vector2.cpp" 
 			"Vector3.cpp" 
-			"Vector4.cpp" "CurveTangent.cpp" "CurveLoopType.cpp" "CurveKey.cpp" "CurveContinuity.cpp" "CurveKeyCollection.cpp" "Curve.cpp")
+			"Vector4.cpp" "CurveTangent.cpp" "CurveLoopType.cpp" "CurveKey.cpp" "CurveContinuity.cpp" "CurveKeyCollection.cpp" "Curve.cpp" "ICurveEvaluator.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET XnaCpp PROPERTY CXX_STANDARD 20)

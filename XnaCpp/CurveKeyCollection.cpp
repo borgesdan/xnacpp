@@ -89,6 +89,11 @@ namespace Xna {
 		auto index = IndexOf(item);
 
 		if (index != -1)
+		{
 			_keys.erase(_keys.begin() + index);
+			return true;
+		}
+
+		return false;
 	}
 }
