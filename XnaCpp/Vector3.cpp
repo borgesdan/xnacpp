@@ -1,4 +1,5 @@
 #include <cmath>
+#include <climits>
 #include "Vector2.hpp"
 #include "Vector3.hpp"
 #include "MathHelper.hpp"
@@ -6,6 +7,7 @@
 #include "Quaternion.hpp"
 
 using std::ceil;
+using std::numeric_limits;
 
 namespace Xna {
 	const Vector3 Vector3::Zero = Vector3(0);
@@ -19,6 +21,8 @@ namespace Xna {
 	const Vector3 Vector3::Left = -UnitX;
 	const Vector3 Vector3::Forward = -UnitZ;
 	const Vector3 Vector3::Backward = UnitZ;
+	const Vector3 Vector3::MaxVector3 = Vector3(numeric_limits<float>::max());
+	const Vector3 Vector3::MinVector3 = Vector3(numeric_limits<float>::min());
 
 	Vector3::Vector3() {}
 	Vector3::Vector3(float value) :
@@ -32,6 +36,10 @@ namespace Xna {
 namespace Xna {
 	Vector3 Vector3::operator -() const {
 		return Negate(*this);
+	}
+
+	Vector3 operator +(Vector3 const& value1, Vector3 const& value2) {
+		return Vector3::Add(value1, value2);
 	}
 
 	Vector3 operator -(Vector3 const& value1, Vector3 const& value2) {

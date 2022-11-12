@@ -329,17 +329,17 @@ namespace Xna {
 
 		//TODO: Conferir utilização de double no código original
 		Matrix result;
-		result.M11 = 2.0 / (right - left);
+		result.M11 = 2.0f / (right - left);
 		result.M12 = 0.0f;
 		result.M13 = 0.0f;
 		result.M14 = 0.0f;
 		result.M21 = 0.0f;
-		result.M22 = 2.0 / (top - bottom);
+		result.M22 = 2.0f / (top - bottom);
 		result.M23 = 0.0f;
 		result.M24 = 0.0f;
 		result.M31 = 0.0f;
 		result.M32 = 0.0f;
-		result.M33 = 1.0 / (zNearPlane - zFarPlane);
+		result.M33 = 1.0f / (zNearPlane - zFarPlane);
 		result.M34 = 0.0f;
 		result.M41 = (left + right) / (left - right);
 		result.M42 = (top + bottom) / (bottom - top);
@@ -410,7 +410,13 @@ namespace Xna {
 	}
 
 	Matrix Matrix::CreatePerspectiveOffCenter(Rectangle const& viewingVolume, float nearPlaneDistance, float farPlaneDistance) {
-		return CreatePerspectiveOffCenter(viewingVolume.Left(), viewingVolume.Right(), viewingVolume.Bottom(), viewingVolume.Top(), nearPlaneDistance, farPlaneDistance);
+		return CreatePerspectiveOffCenter(
+			static_cast<float>(viewingVolume.Left()),
+			static_cast<float>(viewingVolume.Right()),
+			static_cast<float>(viewingVolume.Bottom()),
+			static_cast<float>(viewingVolume.Top()),
+			nearPlaneDistance,
+			farPlaneDistance);
 	}
 
 	Matrix Matrix::CreateRotationX(float radians) {
