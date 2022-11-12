@@ -86,10 +86,10 @@ namespace Xna {
 			float& minor1, float& minor2, float& minor3, float& minor4, float& minor5, float& minor6,
 			float& minor7, float& minor8, float& minor9, float& minor10, float& minor11, float& minor12);
 
-		float Index(int32_t index) const;
-		void Index(int32_t index, float value);
-		float Index(int32_t row, int32_t column) const;
-		void Index(int32_t row, int32_t column, float value);
+		float This(int32_t index) const;
+		void This(int32_t index, float value);
+		float This(int32_t row, int32_t column) const;
+		void This(int32_t row, int32_t column, float value);
 		Vector3 Backward() const;
 		void Backward(Vector3 const& value);
 		Vector3 Down() const;

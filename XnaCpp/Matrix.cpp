@@ -846,7 +846,7 @@ namespace Xna {
 
 //Functions
 namespace Xna {
-	float Matrix::Index(int32_t index) const {
+	float Matrix::This(int32_t index) const {
 		switch (index)
 		{
 		case 0: return M11;
@@ -869,7 +869,7 @@ namespace Xna {
 		}
 	}
 
-	void Matrix::Index(int32_t index, float value) {
+	void Matrix::This(int32_t index, float value) {
 		switch (index)
 		{
 		case 0: M11 = value; break;
@@ -891,12 +891,12 @@ namespace Xna {
 		}
 	}
 
-	float Matrix::Index(int32_t row, int32_t column) const {
-		return Index((row * 4) + column);
+	float Matrix::This(int32_t row, int32_t column) const {
+		return This((row * 4) + column);
 	}
 
-	void Matrix::Index(int32_t row, int32_t column, float value) {
-		Index((row * 4) + column, value);
+	void Matrix::This(int32_t row, int32_t column, float value) {
+		This((row * 4) + column, value);
 	}
 
 	Vector3 Matrix::Backward() const {
