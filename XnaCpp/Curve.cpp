@@ -121,8 +121,7 @@ namespace Xna {
     }
 
     void Curve::ComputeTangents(CurveTangent const& tangentInType, CurveTangent const& tangentOutType) {
-        for (size_t i = 0; i < _keys.Count(); ++i)
-        {
+        for (size_t i = 0; i < _keys.Count(); ++i) {
             ComputeTangent(i, tangentInType, tangentOutType);
         }
     }

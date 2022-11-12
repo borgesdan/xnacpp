@@ -7,6 +7,7 @@
 #include "Vector3.hpp"
 #include "CSharp/Nullable.hpp"
 #include "Rectangle.hpp"
+#include "Plane.hpp"
 
 using CSharp::Nullable;
 using std::numeric_limits;
@@ -841,6 +842,75 @@ namespace Xna {
 		minor10 = det10;
 		minor11 = det11;
 		minor12 = det12;
+	}
+
+	Matrix Matrix::CreateShadow(Vector3 const& lightDirection, Plane const& plane) {
+		auto dot = (plane.Normal.X * lightDirection.X) + (plane.Normal.Y * lightDirection.Y) + (plane.Normal.Z * lightDirection.Z);
+		auto x = -plane.Normal.X;
+		auto y = -plane.Normal.Y;
+		auto z = -plane.Normal.Z;
+		auto d = -plane.D;
+
+		Matrix result;
+		result.M11 = (x * lightDirection.X) + dot;
+		result.M12 = x * lightDirection.Y;
+		result.M13 = x * lightDirection.Z;
+		result.M14 = 0.f;
+		result.M21 = y * lightDirection.X;
+		result.M22 = (y * lightDirection.Y) + dot;
+		result.M23 = y * lightDirection.Z;
+		result.M24 = 0.f;
+		result.M31 = z * lightDirection.X;
+		result.M32 = z * lightDirection.Y;
+		result.M33 = (z * lightDirection.Z) + dot;
+		result.M34 = 0.f;
+		result.M41 = d * lightDirection.X;
+		result.M42 = d * lightDirection.Y;
+		result.M43 = d * lightDirection.Z;
+		result.M44 = dot;
+
+		return result;
+	}
+
+	Matrix Matrix::CreateReflection(Plane const& value) {
+		auto plane = Plane::Normalize(value);
+		auto x = plane.Normal.X;
+		auto y = plane.Normal.Y;
+		auto z = plane.Normal.Z;
+		auto num3 = -2.f * x;
+		auto num2 = -2.f * y;
+		auto num = -2.f * z;
+
+		Matrix result;
+		result.M11 = (num3 * x) + 1.f;
+		result.M12 = num2 * x;
+		result.M13 = num * x;
+		result.M14 = 0;
+		result.M21 = num3 * y;
+		result.M22 = (num2 * y) + 1;
+		result.M23 = num * y;
+		result.M24 = 0;
+		result.M31 = num3 * z;
+		result.M32 = num2 * z;
+		result.M33 = (num * z) + 1;
+		result.M34 = 0;
+		result.M41 = num3 * plane.D;
+		result.M42 = num2 * plane.D;
+		result.M43 = num * plane.D;
+		result.M44 = 1;
+
+		return result;
+	}
+
+	std::vector<float> Matrix::ToFloatArray(Matrix const& matrix) {
+		std::vector<float> matarray = {
+			matrix.M11, matrix.M12, matrix.M13, matrix.M14,
+			matrix.M21, matrix.M22, matrix.M23, matrix.M24,
+			matrix.M31, matrix.M32, matrix.M33, matrix.M34,
+			matrix.M41, matrix.M42, matrix.M43, matrix.M44
+		};
+
+		return matarray;
 	}
 }
 

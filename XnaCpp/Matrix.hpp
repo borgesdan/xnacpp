@@ -2,6 +2,7 @@
 #define _MATRIX_HPP_
 
 #include <memory>
+#include <vector>
 #include "CSharp/Nullable.hpp"
 
 namespace Xna {
@@ -10,6 +11,7 @@ namespace Xna {
 	struct Rectangle;
 	struct Vector4;
 	struct Vector3;
+	struct Plane;
 
 	struct Matrix {
 		float M11{ 0 };
@@ -67,8 +69,8 @@ namespace Xna {
 		static Matrix CreateScale(float scale);
 		static Matrix CreateScale(float xScale, float yScale, float zScale);
 		static Matrix CreateScale(Vector3 const& scales);
-		//TODO: Implementar após a implementação de Plane - static Matrix CreateShadow(Vector3 lightDirection, Plane plane);
-		//TODO: Implementar após a implementação de Plane - static Matrix CreateReflection(Plane value)
+		static Matrix CreateShadow(Vector3 const& lightDirection, Plane const& plane);
+		static Matrix CreateReflection(Plane const& value);
 		static Matrix CreateTranslation(float xPosition, float yPosition, float zPosition);
 		static Matrix CreateTranslation(Vector3 const& position);
 		static Matrix CreateWorld(Vector3 const& position, Vector3 const& forward, Vector3 const& up);
@@ -78,7 +80,7 @@ namespace Xna {
 		static Matrix Lerp(Matrix const& matrix1, Matrix const& matrix2, float amount);
 		static Matrix Multiply(Matrix const& matrix1, Matrix const& matrix2);
 		static Matrix Multiply(Matrix const& matrix1, float scaleFactor);
-		//TODO: Implementar retorno de array - static float[] ToFloatArray(Matrix const& matrix);
+		static std::vector<float> ToFloatArray(Matrix const& matrix);
 		static Matrix Negate(Matrix const& matrix);
 		static Matrix Subtract(Matrix const& matrix1, Matrix const& matrix2);
 		static Matrix Transpose(Matrix const& matrix);

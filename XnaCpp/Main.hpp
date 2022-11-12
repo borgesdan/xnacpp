@@ -5,5 +5,3 @@
 
 #include <iostream>
 #include "Point.hpp"
-
-// TODO: Referencie os cabeçalhos adicionais de que seu programa precisa aqui.
