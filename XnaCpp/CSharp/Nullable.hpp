@@ -23,7 +23,9 @@ namespace CSharp {
 		Nullable(CSNullable nullable) {}
 
 		Nullable(T value) :
-			_value(value), _hasValue(true) {}
+			_value(value) {
+			_hasValue = true;
+		}
 
 		bool HasValue() const {
 			return _hasValue;

@@ -8,15 +8,15 @@
 #include "ContainmentType.hpp"
 #include "PlaneIntersectionType.hpp"
 #include "CSharp/Nullable.hpp"
+#include "Plane.hpp"
 
 namespace Xna {
 
-	struct Plane;
 	struct BoundingBox;
 	struct BoundingSphere;
 	struct Ray;
 
-	class BoudingFrustum {
+	class BoundingFrustum {
 	public:
 		static constexpr int32_t PlaneCount = 6;
 		static constexpr int32_t CornerCount = 8;
@@ -27,6 +27,7 @@ namespace Xna {
 		friend bool operator !=(BoundingFrustum const& a, BoundingFrustum const& b);
 
 		Matrix GetMatrix() const;
+		void SetMatrix(Matrix value);
 		Plane Near() const;
 		Plane Far() const;
 		Plane Left() const;
@@ -34,26 +35,25 @@ namespace Xna {
 		Plane Top() const;
 		Plane Bottom() const;
 		ContainmentType Contains(BoundingBox const& box) const;
-		ContainmentType Contains(BoundingFrustum const& box) const;
-		ContainmentType Contains(BoundingSphere const& box) const;
-		ContainmentType Contains(Vector3 const& box) const;
+		ContainmentType Contains(BoundingFrustum const& frustum) const;
+		ContainmentType Contains(BoundingSphere const& sphere) const;
+		ContainmentType Contains(Vector3 const& point) const;
 		bool Equals(BoundingFrustum const& other) const;
 		std::vector<Vector3> GetCorners() const;
-		std::vector<Vector3> GetCorners(Vector3 const& corrners) const;
+		void GetCorners(std::vector<Vector3>& corners) const;
 		bool Intersects(BoundingBox const& box) const;
-		bool Intersects(BoundingFrustum const& box) const;
-		bool Intersects(BoundingSphere const& box) const;
-		PlaneIntersectionType Intersects(Plane const& plane);
+		bool Intersects(BoundingFrustum const& frustum) const;
+		bool Intersects(BoundingSphere const& sphere) const;	
+		PlaneIntersectionType Intersects(Plane const& plane) const;
 		CSharp::Nullable<float> Intersects(Ray const& ray) const;
 
 	private:
 		Matrix _matrix{ Matrix() };
 
-		static const std::vector<Vector3> _corners = std::vector<Vector3>(CornerCount);
-		static const std::vector<Plane> _planes = std::vector<Plane>(PlaneCount);
+		std::vector<Vector3> _corners = std::vector<Vector3>(CornerCount);
+		std::vector<Plane> _planes = std::vector<Plane>(PlaneCount);
 
-		static void IntersectionPoint(Plane const& a, Plane const& b,
-			Plane const& c, Vector3 const& result);
+		static Vector3 IntersectionPoint(Plane const& a, Plane const& b, Plane const& c);
 
 		void CreateCorners();
 		void CreatePlanes();

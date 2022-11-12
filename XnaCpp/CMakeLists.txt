@@ -5,19 +5,26 @@ cmake_minimum_required (VERSION 3.8)
 
 # Adicione a origem ao executável deste projeto.
 add_executable (XnaCpp 
-			"CSharp/TimeSpan.cpp"  
 			"CSharp/Nullable.cpp"
-			"Main.cpp" 
-			"Point.cpp" 
-			"Rectangle.cpp" 
-			"GameTime.cpp"  
-			"Vector2.cpp" 
-			"MathHelper.cpp"  
-			"Vector3.cpp" 
-			"Vector4.cpp"
+			"CSharp/TimeSpan.cpp"  
+			"BoundingBox.cpp"
+			"BoundingFrustum.cpp"
+			"BoundingSphere.cpp"
 			"Color.cpp"
+			"ContainmentType.cpp"
+			"GameTime.cpp"  
+			"Main.cpp" 
+			"MathHelper.cpp"  
+			"Matrix.cpp"
+			"Plane.cpp"
+			"PlaneIntersectionType.cpp"
+			"Point.cpp" 
+			"Ray.cpp"
+			"Rectangle.cpp" 
 			"Quaternion.cpp"
-			"Matrix.cpp" "PlaneIntersectionType.cpp" "BoundingFrustum.cpp")
+			"Vector2.cpp" 
+			"Vector3.cpp" 
+			"Vector4.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET XnaCpp PROPERTY CXX_STANDARD 20)

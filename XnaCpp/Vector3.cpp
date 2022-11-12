@@ -38,6 +38,10 @@ namespace Xna {
 		return Negate(*this);
 	}
 
+	Vector3 operator +(Vector3 const& value1, Vector3 const& value2) {
+		return Vector3::Add(value1, value2);
+	}
+
 	Vector3 operator -(Vector3 const& value1, Vector3 const& value2) {
 		return Vector3::Subtract(value1, value2);
 	}
