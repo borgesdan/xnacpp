@@ -32,7 +32,7 @@ add_executable (XnaCpp
 			"CurveKeyCollection.cpp"
 			"Curve.cpp"
 			"ICurveEvaluator.cpp"
-			"GameWindow.cpp" "Platform/SDL/SdlGameWindow.cpp")
+			"GameWindow.cpp" "Platform/SDL/SdlGameWindow.cpp" "Platform/SDL/SdlGamePlatform.cpp" "GamePlatform.cpp" "GameRunBehavior.cpp" "Game.cpp" "Graphics/PresentationParameters.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET XnaCpp PROPERTY CXX_STANDARD 20)
