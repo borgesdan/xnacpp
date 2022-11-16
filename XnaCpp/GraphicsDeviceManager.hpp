@@ -3,7 +3,6 @@
 
 #include <cstdint>
 #include <memory>
-#include "Game.hpp"
 #include "IGraphicsDeviceManager.hpp"
 #include "GraphicsDeviceInformation.hpp"
 #include "Graphics/SurfaceFormat.hpp"
@@ -14,17 +13,11 @@
 
 namespace Xna {
 
-	using std::shared_ptr;
-	using Graphics::IGraphicsDeviceService;
-	using Graphics::GraphicsDevice;
-	using Graphics::SurfaceFormat;
-	using Graphics::DepthFormat;
-	using Graphics::GraphicsProfile;
-	using Graphics::PresentationParameters;
+	class Game;
 
-	class GraphicsDeviceManager : IGraphicsDeviceManager, IGraphicsDeviceService {
+	class GraphicsDeviceManager : IGraphicsDeviceManager, Graphics::IGraphicsDeviceService {
 	private:
-		shared_ptr<Game> _game;
+		std::shared_ptr<Game> _game;
 		bool _initialized{ false };
 		int32_t _preferredBackBufferHeight{ 0 };
 		int32_t _preferredBackBufferWidth{ 0 };
@@ -35,16 +28,16 @@ namespace Xna {
 		bool _preferHalfPixelOffset{ false };
 		bool _wantFullScreen{ false };
 		bool _shouldApplyChanges{ false };
-		SurfaceFormat _preferredBackBufferFormat;
-		DepthFormat _preferredDepthStencilFormat;
-		GraphicsProfile _graphicsProfile;
-		shared_ptr<GraphicsDevice> _graphicsDevice;
+		Graphics::SurfaceFormat _preferredBackBufferFormat;
+		Graphics::DepthFormat _preferredDepthStencilFormat;
+		Graphics::GraphicsProfile _graphicsProfile;
+		std::shared_ptr<Graphics::GraphicsDevice> _graphicsDevice;
 
 		GraphicsDeviceInformation DoPreparingDeviceSettings();
 
 		void PlatformApplyChanges();
-		void PlatformPreparePresentationParameters(PresentationParameters const& presentationParameters);
-		void PreparePresentationParameters(PresentationParameters const& presentationParameters);
+		void PlatformPreparePresentationParameters(Graphics::PresentationParameters const& presentationParameters);
+		void PreparePresentationParameters(Graphics::PresentationParameters const& presentationParameters);
 
 		void DisposeGraphicsDevice();
 		void PlatformInitialize(Graphics::PresentationParameters const& presentationParameters);
@@ -54,7 +47,7 @@ namespace Xna {
 		static constexpr int32_t DefaultBackBufferWidth = 800;
 		static constexpr int32_t DefaultBackBufferHeight = 480;
 
-		GraphicsDeviceManager(shared_ptr<Game> const& game);
+		GraphicsDeviceManager(std::shared_ptr<Game> game);
 		~GraphicsDeviceManager();
 
 		void PlatformConstruct();

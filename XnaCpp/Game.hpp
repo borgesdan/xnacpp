@@ -103,7 +103,7 @@ namespace Xna {
 		// LaunchParameters LaunchParameters { get; private set; }
 		// GameComponentCollection Components { get; }
 		//GraphicsDeviceManager graphicsDeviceManager();
-		//void graphicsDeviceManager(shared_ptr<GraphicsDeviceManager> const& value);
+		void graphicsDeviceManager(shared_ptr<GraphicsDeviceManager> value);
 	};
 }
 
