@@ -2,37 +2,36 @@
 #define _GAME_HPP_
 
 #include <memory>
-#include "GameWindow.hpp"
-#include "IGraphicsDeviceManager.hpp""
-#include "GraphicsDeviceManager.hpp"
-#include "GameTime.hpp"
-#include "Graphics/IGraphicsDeviceService.hpp"
-#include "Graphics/GraphicsDevice.hpp"
+#include <map>
+#include <string>
 #include "CSharp/TimeSpan.hpp"
 
-using std::shared_ptr;
-using CSharp::TimeSpan;
-using Xna::Graphics::IGraphicsDeviceService;
-using Xna::Graphics::GraphicsDevice;
-
 namespace Xna {
+
+	class GameWindow;
+	class IGraphicsDeviceManager;
+	class GraphicsDeviceManager;
+	class IGraphicsDeviceService;
+	class GraphicsDevice;
+	class GameTime;
 
 	class Game {		
 	private:
 		//GameComponentCollection _components;
 		//GameServiceContainer _services;
 		//ContentManager _content;
-		shared_ptr<IGraphicsDeviceManager> _graphicsDeviceManager;
-		shared_ptr<IGraphicsDeviceService> _graphicsDeviceService;		
+		std::map<std::string, std::string> launchParameters;
+		std::shared_ptr<IGraphicsDeviceManager> _graphicsDeviceManager;
+		std::shared_ptr<IGraphicsDeviceService> _graphicsDeviceService;
 		bool _initialized{ false };
 		bool _isFixedTimeStep{ true };
 		bool _shouldExit{ false };
 		bool _suppressDraw{ false };
-		TimeSpan _targetElapsedTime{ TimeSpan::FromTicks(166667) };
-		TimeSpan _inactiveSleepTime{ TimeSpan::FromSeconds(0.02) };
-		TimeSpan _maxElapsedTime{ TimeSpan::FromMilliseconds(500) };
+		CSharp::TimeSpan _targetElapsedTime{ CSharp::TimeSpan::FromTicks(166667) };
+		CSharp::TimeSpan _inactiveSleepTime{ CSharp::TimeSpan::FromSeconds(0.02) };
+		CSharp::TimeSpan _maxElapsedTime{ CSharp::TimeSpan::FromMilliseconds(500) };
 
-		static shared_ptr<Game> _instance;
+		static std::shared_ptr<Game> _instance;
 
 		void PlatformConstruct();
 		void InitializeExistingComponents();
@@ -64,24 +63,24 @@ namespace Xna {
 		Game();
 		~Game();
 
-		static shared_ptr<Game> Instance();
+		static std::shared_ptr<Game> Instance();
 
-		TimeSpan InactiveSleepTime() const;
-		void InactiveSleepTime(TimeSpan const& value);
-		TimeSpan MaxElapsedTime() const;
-		void MaxElapsedTime(TimeSpan const& value);
+		CSharp::TimeSpan InactiveSleepTime() const;
+		void InactiveSleepTime(CSharp::TimeSpan const& value);
+		CSharp::TimeSpan MaxElapsedTime() const;
+		void MaxElapsedTime(CSharp::TimeSpan const& value);
 		bool IsActive() const;
 		bool IsMouseVisible() const;
 		void IsMouseVisible(bool value);
-		TimeSpan TargetElapsedTime() const;
-		void TargetElapsedTime(TimeSpan const& value);
+		CSharp::TimeSpan TargetElapsedTime() const;
+		void TargetElapsedTime(CSharp::TimeSpan const& value);
 		bool IsFixedTimeStep() const;
 		void IsFixedTimeStep(bool value);
 		//GameServiceContainer Services() const;
 		//ContentManager Content() const;
 		//void Content(ContentManager value) const;
-		shared_ptr<GraphicsDevice> GraphicsDevice();
-		shared_ptr<GameWindow> Window();
+		std::shared_ptr<GraphicsDevice> GraphicsDevice();
+		std::shared_ptr<GameWindow> Window();
 		bool Initialized() const;
 		void Exit();
 		void ResetElapsedTime();
@@ -100,10 +99,10 @@ namespace Xna {
 		//public event EventHandler<EventArgs> Deactivated;
 		//public event EventHandler<EventArgs> Exiting;
 
-		// LaunchParameters LaunchParameters { get; private set; }
+		std::map<std::string, std::string> LaunchParameters() const;
 		// GameComponentCollection Components { get; }
-		//GraphicsDeviceManager graphicsDeviceManager();
-		void graphicsDeviceManager(shared_ptr<GraphicsDeviceManager> value);
+		std::shared_ptr<GraphicsDeviceManager> graphicsDeviceManager();
+		void graphicsDeviceManager(std::shared_ptr<GraphicsDeviceManager> value);
 	};
 }
 

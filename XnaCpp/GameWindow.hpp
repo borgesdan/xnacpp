@@ -6,7 +6,7 @@
 #include "Point.hpp"
 
 namespace Xna {
-
+	
 	class Game;
 
 	class GameWindow {

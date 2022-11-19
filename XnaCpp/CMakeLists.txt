@@ -32,7 +32,7 @@ add_executable (XnaCpp
 			"CurveKeyCollection.cpp"
 			"Curve.cpp"
 			"ICurveEvaluator.cpp"
-			"GameWindow.cpp" "Platform/SDL/SdlGameWindow.cpp" "Platform/SDL/SdlGamePlatform.cpp" "GamePlatform.cpp" "GameRunBehavior.cpp" "Game.cpp" "Graphics/PresentationParameters.cpp" "Graphics/States/DepthFormat.cpp" "Graphics/SuurfaceFormat.cpp" "GraphicsDeviceManager.cpp" "Graphics/IGraphicsDeviceService.cpp" "Graphics/GraphicsDevice.cpp" "IGraphicsDeviceManager.cpp" "Graphics/GraphicsProfile.cpp" "GraphicsDeviceInformation.cpp" "Graphics/GraphicsAdapter.cpp")
+			"GameWindow.cpp" "Platform/SDL/SdlGameWindow.cpp" "Platform/SDL/SdlGamePlatform.cpp" "GamePlatform.cpp" "GameRunBehavior.cpp" "Game.cpp" "Graphics/PresentationParameters.cpp" "Graphics/States/DepthFormat.cpp" "Graphics/SuurfaceFormat.cpp" "GraphicsDeviceManager.cpp" "Graphics/IGraphicsDeviceService.cpp" "Graphics/GraphicsDevice.cpp" "IGraphicsDeviceManager.cpp" "Graphics/GraphicsProfile.cpp" "GraphicsDeviceInformation.cpp" "Graphics/GraphicsAdapter.cpp" "GameServiceContainer.cpp" )
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET XnaCpp PROPERTY CXX_STANDARD 20)
