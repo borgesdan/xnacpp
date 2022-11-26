@@ -32,7 +32,7 @@ add_executable (XnaCpp
 			"CurveKeyCollection.cpp"
 			"Curve.cpp"
 			"ICurveEvaluator.cpp"
-			"ContentManager.cpp")
+			"Content/ContentManager.cpp" "Content/ContentReader.cpp" "Content/ContentTypeReader.cpp" "Content/ContentTypeReaderManager.cpp" "Graphics/GraphicsResource.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET XnaCpp PROPERTY CXX_STANDARD 20)
